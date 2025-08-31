@@ -60,6 +60,7 @@
             button1.TabIndex = 0;
             button1.Text = "0";
             button1.UseVisualStyleBackColor = true;
+            button1.Click += clickBoton;
             // 
             // button2
             // 
@@ -70,6 +71,7 @@
             button2.TabIndex = 1;
             button2.Text = "1";
             button2.UseVisualStyleBackColor = true;
+            button2.Click += clickBoton;
             // 
             // button3
             // 
@@ -80,6 +82,7 @@
             button3.TabIndex = 2;
             button3.Text = "2";
             button3.UseVisualStyleBackColor = true;
+            button3.Click += clickBoton;
             // 
             // button4
             // 
@@ -90,6 +93,7 @@
             button4.TabIndex = 3;
             button4.Text = "3";
             button4.UseVisualStyleBackColor = true;
+            button4.Click += clickBoton;
             // 
             // button5
             // 
@@ -100,6 +104,7 @@
             button5.TabIndex = 4;
             button5.Text = "4";
             button5.UseVisualStyleBackColor = true;
+            button5.Click += clickBoton;
             // 
             // button6
             // 
@@ -110,6 +115,7 @@
             button6.TabIndex = 5;
             button6.Text = "5";
             button6.UseVisualStyleBackColor = true;
+            button6.Click += clickBoton;
             // 
             // button7
             // 
@@ -120,6 +126,7 @@
             button7.TabIndex = 6;
             button7.Text = "6";
             button7.UseVisualStyleBackColor = true;
+            button7.Click += clickBoton;
             // 
             // button8
             // 
@@ -130,6 +137,7 @@
             button8.TabIndex = 7;
             button8.Text = "7";
             button8.UseVisualStyleBackColor = true;
+            button8.Click += clickBoton;
             // 
             // button9
             // 
@@ -140,6 +148,7 @@
             button9.TabIndex = 8;
             button9.Text = "8";
             button9.UseVisualStyleBackColor = true;
+            button9.Click += clickBoton;
             // 
             // button10
             // 
@@ -150,26 +159,29 @@
             button10.TabIndex = 9;
             button10.Text = "9";
             button10.UseVisualStyleBackColor = true;
+            button10.Click += clickBoton;
             // 
             // button11
             // 
             button11.Font = new Font("Segoe UI", 15F);
-            button11.Location = new Point(211, 371);
+            button11.Location = new Point(61, 371);
             button11.Name = "button11";
             button11.Size = new Size(69, 69);
             button11.TabIndex = 10;
             button11.Text = ".";
             button11.UseVisualStyleBackColor = true;
+            button11.Click += clickBoton;
             // 
             // button12
             // 
             button12.Font = new Font("Segoe UI", 15F);
-            button12.Location = new Point(286, 371);
+            button12.Location = new Point(211, 371);
             button12.Name = "button12";
-            button12.Size = new Size(69, 69);
+            button12.Size = new Size(144, 69);
             button12.TabIndex = 11;
             button12.Text = "=";
             button12.UseVisualStyleBackColor = true;
+            button12.Click += resultado;
             // 
             // button13
             // 
@@ -180,6 +192,7 @@
             button13.TabIndex = 12;
             button13.Text = "+";
             button13.UseVisualStyleBackColor = true;
+            button13.Click += operacion;
             // 
             // button14
             // 
@@ -190,6 +203,7 @@
             button14.TabIndex = 13;
             button14.Text = "-";
             button14.UseVisualStyleBackColor = true;
+            button14.Click += operacion;
             // 
             // button15
             // 
@@ -200,6 +214,7 @@
             button15.TabIndex = 14;
             button15.Text = "x";
             button15.UseVisualStyleBackColor = true;
+            button15.Click += operacion;
             // 
             // button16
             // 
@@ -210,6 +225,7 @@
             button16.TabIndex = 15;
             button16.Text = "/";
             button16.UseVisualStyleBackColor = true;
+            button16.Click += operacion;
             // 
             // button17
             // 
@@ -231,6 +247,7 @@
             button18.TabIndex = 17;
             button18.Text = "CA";
             button18.UseVisualStyleBackColor = true;
+            button18.Click += clearAll;
             // 
             // button19
             // 
@@ -241,14 +258,20 @@
             button19.TabIndex = 18;
             button19.Text = "C";
             button19.UseVisualStyleBackColor = true;
+            button19.Click += clear;
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(61, 49);
-            textBox1.Multiline = true;
+            textBox1.BackColor = SystemColors.ButtonHighlight;
+            textBox1.BorderStyle = BorderStyle.FixedSingle;
+            textBox1.Font = new Font("Segoe UI", 30F);
+            textBox1.Location = new Point(61, 59);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(369, 83);
+            textBox1.ReadOnly = true;
+            textBox1.Size = new Size(369, 61);
             textBox1.TabIndex = 19;
+            textBox1.Text = "0";
+            textBox1.TextAlign = HorizontalAlignment.Right;
             // 
             // Form1
             // 

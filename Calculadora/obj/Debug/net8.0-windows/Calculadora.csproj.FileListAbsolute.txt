@@ -15,3 +15,4 @@ C:\Users\Administrador\Desktop\Calculadora\Calculadora\obj\Debug\net8.0-windows\
 C:\Users\Administrador\Desktop\Calculadora\Calculadora\obj\Debug\net8.0-windows\Calculadora.pdb
 C:\Users\Administrador\Desktop\Calculadora\Calculadora\obj\Debug\net8.0-windows\Calculadora.genruntimeconfig.cache
 C:\Users\Administrador\Desktop\Calculadora\Calculadora\obj\Debug\net8.0-windows\ref\Calculadora.dll
+C:\Users\Administrador\Desktop\Calculadora\Calculadora\obj\Debug\net8.0-windows\Calculadora.sourcelink.json
