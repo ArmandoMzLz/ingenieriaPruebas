@@ -1,17 +1,18 @@
 using System.Runtime.InteropServices.ObjectiveC;
+using System.Runtime.Intrinsics.X86;
 
 namespace Calculadora
 {
     public partial class Form1 : Form
     {
-        float resultadoOperacion = 0;
-        int contador = 0;
+        private float resultadoOperacion = 0;
+        private int contador = 0;
 
-        string simboloOperacion = string.Empty;
-        string[] historial = new string[5];
+        private string simboloOperacion = string.Empty;
+        private string[] historial = new string[5];
 
-        bool operacionRealizada = false;
-        bool operacionDisponible = false;
+        private bool operacionRealizada = false;
+        private bool operacionDisponible = false;
 
         public Form1()
         {
@@ -25,7 +26,9 @@ namespace Calculadora
 
         private void clickBoton(object sender, EventArgs eventArgs)
         {
-           if(operacionRealizada)
+            Button button = (Button)sender;
+
+           if (operacionRealizada)
            {
                 textBox1.Clear();
                 operacionRealizada = false;
@@ -33,9 +36,7 @@ namespace Calculadora
 
             if (textBox1.Text == "0")
                 textBox1.Clear();
-
-            Button button = (Button)sender;
-
+                        
             if (button.Text == ".")
             {
                 if (!textBox1.Text.Contains("."))
@@ -69,19 +70,13 @@ namespace Calculadora
                     textBox1.Text = (resultadoOperacion / float.Parse(textBox1.Text)).ToString("0.00"); break;
             }
 
-            if (contador == 4)
-                contador = 0;
-
-            if(!operacionDisponible)
+            if (!operacionDisponible)
                 label1.Text = String.Empty;
 
-            historial[contador] = resultadoOperacion + " " + simboloOperacion + " " + aux + " = " + textBox1.Text;
-            label1.Text = label1.Text + historial[contador] + "\n\n";
+            historialFuncion(aux);
 
             operacionRealizada = true;
             operacionDisponible = true;
-
-            contador++;
         }
 
         private void clearAll(object sender, EventArgs eventArgs)
@@ -101,6 +96,17 @@ namespace Calculadora
                 panel1.Visible = true;
             else
                 panel1.Visible = false;
+        }
+
+        private void historialFuncion(string aux)
+        {
+            if(contador == 4)
+                contador = 0;
+
+            historial[contador] = resultadoOperacion + " " + simboloOperacion + " " + aux + " = " + textBox1.Text;
+            label1.Text = label1.Text + historial[contador] + "\n\n";
+
+            contador++;
         }
     }
 }
