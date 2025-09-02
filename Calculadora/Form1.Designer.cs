@@ -49,6 +49,9 @@
             button18 = new Button();
             button19 = new Button();
             textBox1 = new TextBox();
+            panel1 = new Panel();
+            label1 = new Label();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // button1
@@ -237,6 +240,7 @@
             button17.Size = new Size(69, 69);
             button17.TabIndex = 16;
             button17.UseVisualStyleBackColor = true;
+            button17.Click += historialOperaciones;
             // 
             // button18
             // 
@@ -273,11 +277,34 @@
             textBox1.Text = "0";
             textBox1.TextAlign = HorizontalAlignment.Right;
             // 
+            // panel1
+            // 
+            panel1.BackColor = SystemColors.ButtonHighlight;
+            panel1.BorderStyle = BorderStyle.FixedSingle;
+            panel1.Controls.Add(label1);
+            panel1.Dock = DockStyle.Right;
+            panel1.Location = new Point(211, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(278, 499);
+            panel1.TabIndex = 20;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 13F);
+            label1.Location = new Point(7, 30);
+            label1.Name = "label1";
+            label1.Size = new Size(266, 25);
+            label1.TabIndex = 0;
+            label1.Text = "No hay operaciones disponibles";
+            label1.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(493, 499);
+            ClientSize = new Size(489, 499);
+            Controls.Add(panel1);
             Controls.Add(textBox1);
             Controls.Add(button19);
             Controls.Add(button18);
@@ -298,9 +325,14 @@
             Controls.Add(button3);
             Controls.Add(button2);
             Controls.Add(button1);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
             Name = "Form1";
             Text = "Calculadora";
             Load += Form1_Load;
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -327,5 +359,7 @@
         private Button button18;
         private Button button19;
         private TextBox textBox1;
+        private Panel panel1;
+        private Label label1;
     }
 }
