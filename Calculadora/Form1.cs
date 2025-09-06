@@ -28,20 +28,25 @@ namespace Calculadora
         {
             Button button = (Button)sender;
 
-           if (operacionRealizada)
-           {
-                textBox1.Clear();
-                operacionRealizada = false;
-           }
+            int indicePuntoDecimal = textBox1.Text.IndexOf(".");
+            bool masDeDosDecimales = indicePuntoDecimal >= 0 && textBox1.Text.Length - indicePuntoDecimal - 1 > 1;
 
             if (textBox1.Text == "0")
                 textBox1.Clear();
-                        
+
+            if (operacionRealizada)
+            {
+                textBox1.Clear();
+                operacionRealizada = false;
+            }
+
             if (button.Text == ".")
             {
                 if (!textBox1.Text.Contains("."))
                     textBox1.Text = textBox1.Text + button.Text;
             }
+            else if (masDeDosDecimales)
+                textBox1.Text = textBox1.Text;
             else
                 textBox1.Text = textBox1.Text + button.Text;
         }
@@ -58,6 +63,7 @@ namespace Calculadora
         private void resultado(object sender, EventArgs eventArgs)
         {
             string aux = textBox1.Text;
+
             switch (simboloOperacion)
             {
                 case "+":
@@ -67,13 +73,20 @@ namespace Calculadora
                 case "x":
                     textBox1.Text = (resultadoOperacion * float.Parse(textBox1.Text)).ToString("0.00"); break;
                 case "/":
-                    textBox1.Text = (resultadoOperacion / float.Parse(textBox1.Text)).ToString("0.00"); break;
+                    if(float.Parse(textBox1.Text) == 0)
+                    {
+                        textBox1.Text = "Math ERROR"; break;
+                    } else
+                    {
+                        textBox1.Text = (resultadoOperacion / float.Parse(textBox1.Text)).ToString("0.00"); break;
+                    }
             }
 
             if (!operacionDisponible)
                 label1.Text = String.Empty;
 
-            historialFuncion(aux);
+            if(textBox1.Text != "Math ERROR")
+                historialFuncion(aux);
 
             operacionRealizada = true;
             operacionDisponible = true;
