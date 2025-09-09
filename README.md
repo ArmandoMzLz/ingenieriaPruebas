@@ -11,4 +11,4 @@
 	- Clear All
 - Historial de operaciones
 
-![Calculadora](calculadoraImagen.png)
+![Calculadora](CalculadoraGif.gif)
