@@ -10,5 +10,10 @@
 	- Clear
 	- Clear All
 - Historial de operaciones
+- Funciones de Memoria
+	- M+
+	- M-
+	- MR
+	- MC
 
 ![Calculadora](CalculadoraGif.gif)

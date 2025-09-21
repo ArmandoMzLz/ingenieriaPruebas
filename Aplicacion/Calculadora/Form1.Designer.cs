@@ -51,13 +51,17 @@
             textBox1 = new TextBox();
             panel1 = new Panel();
             label1 = new Label();
+            button20 = new Button();
+            button21 = new Button();
+            button22 = new Button();
+            button23 = new Button();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
             // button1
             // 
             button1.Font = new Font("Segoe UI", 15F);
-            button1.Location = new Point(136, 371);
+            button1.Location = new Point(136, 446);
             button1.Name = "button1";
             button1.Size = new Size(69, 69);
             button1.TabIndex = 0;
@@ -68,7 +72,7 @@
             // button2
             // 
             button2.Font = new Font("Segoe UI", 15F);
-            button2.Location = new Point(136, 296);
+            button2.Location = new Point(136, 371);
             button2.Name = "button2";
             button2.Size = new Size(69, 69);
             button2.TabIndex = 1;
@@ -79,7 +83,7 @@
             // button3
             // 
             button3.Font = new Font("Segoe UI", 15F);
-            button3.Location = new Point(211, 296);
+            button3.Location = new Point(211, 371);
             button3.Name = "button3";
             button3.Size = new Size(69, 69);
             button3.TabIndex = 2;
@@ -90,7 +94,7 @@
             // button4
             // 
             button4.Font = new Font("Segoe UI", 15F);
-            button4.Location = new Point(286, 296);
+            button4.Location = new Point(286, 371);
             button4.Name = "button4";
             button4.Size = new Size(69, 69);
             button4.TabIndex = 3;
@@ -101,7 +105,7 @@
             // button5
             // 
             button5.Font = new Font("Segoe UI", 15F);
-            button5.Location = new Point(136, 221);
+            button5.Location = new Point(136, 296);
             button5.Name = "button5";
             button5.Size = new Size(69, 69);
             button5.TabIndex = 4;
@@ -112,7 +116,7 @@
             // button6
             // 
             button6.Font = new Font("Segoe UI", 15F);
-            button6.Location = new Point(211, 221);
+            button6.Location = new Point(211, 296);
             button6.Name = "button6";
             button6.Size = new Size(69, 69);
             button6.TabIndex = 5;
@@ -123,7 +127,7 @@
             // button7
             // 
             button7.Font = new Font("Segoe UI", 15F);
-            button7.Location = new Point(286, 221);
+            button7.Location = new Point(286, 296);
             button7.Name = "button7";
             button7.Size = new Size(69, 69);
             button7.TabIndex = 6;
@@ -134,7 +138,7 @@
             // button8
             // 
             button8.Font = new Font("Segoe UI", 15F);
-            button8.Location = new Point(136, 146);
+            button8.Location = new Point(136, 221);
             button8.Name = "button8";
             button8.Size = new Size(69, 69);
             button8.TabIndex = 7;
@@ -145,7 +149,7 @@
             // button9
             // 
             button9.Font = new Font("Segoe UI", 15F);
-            button9.Location = new Point(211, 146);
+            button9.Location = new Point(211, 221);
             button9.Name = "button9";
             button9.Size = new Size(69, 69);
             button9.TabIndex = 8;
@@ -156,7 +160,7 @@
             // button10
             // 
             button10.Font = new Font("Segoe UI", 15F);
-            button10.Location = new Point(286, 146);
+            button10.Location = new Point(286, 221);
             button10.Name = "button10";
             button10.Size = new Size(69, 69);
             button10.TabIndex = 9;
@@ -167,7 +171,7 @@
             // button11
             // 
             button11.Font = new Font("Segoe UI", 15F);
-            button11.Location = new Point(61, 371);
+            button11.Location = new Point(61, 446);
             button11.Name = "button11";
             button11.Size = new Size(69, 69);
             button11.TabIndex = 10;
@@ -178,7 +182,7 @@
             // button12
             // 
             button12.Font = new Font("Segoe UI", 15F);
-            button12.Location = new Point(211, 371);
+            button12.Location = new Point(211, 446);
             button12.Name = "button12";
             button12.Size = new Size(144, 69);
             button12.TabIndex = 11;
@@ -191,7 +195,7 @@
             button13.Font = new Font("Segoe UI", 15F);
             button13.Location = new Point(361, 371);
             button13.Name = "button13";
-            button13.Size = new Size(69, 69);
+            button13.Size = new Size(69, 144);
             button13.TabIndex = 12;
             button13.Text = "+";
             button13.UseVisualStyleBackColor = true;
@@ -235,7 +239,7 @@
             button17.BackgroundImage = (Image)resources.GetObject("button17.BackgroundImage");
             button17.BackgroundImageLayout = ImageLayout.Center;
             button17.Font = new Font("Segoe UI", 15F);
-            button17.Location = new Point(61, 146);
+            button17.Location = new Point(61, 221);
             button17.Name = "button17";
             button17.Size = new Size(69, 69);
             button17.TabIndex = 16;
@@ -245,7 +249,7 @@
             // button18
             // 
             button18.Font = new Font("Segoe UI", 15F);
-            button18.Location = new Point(61, 221);
+            button18.Location = new Point(61, 296);
             button18.Name = "button18";
             button18.Size = new Size(69, 69);
             button18.TabIndex = 17;
@@ -256,7 +260,7 @@
             // button19
             // 
             button19.Font = new Font("Segoe UI", 15F);
-            button19.Location = new Point(61, 296);
+            button19.Location = new Point(61, 371);
             button19.Name = "button19";
             button19.Size = new Size(69, 69);
             button19.TabIndex = 18;
@@ -285,7 +289,7 @@
             panel1.Dock = DockStyle.Right;
             panel1.Location = new Point(211, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(278, 499);
+            panel1.Size = new Size(278, 539);
             panel1.TabIndex = 20;
             // 
             // label1
@@ -297,14 +301,62 @@
             label1.Size = new Size(266, 25);
             label1.TabIndex = 0;
             label1.Text = "No hay operaciones disponibles";
-            label1.TextAlign = ContentAlignment.MiddleCenter;
+            label1.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // button20
+            // 
+            button20.Font = new Font("Segoe UI", 15F);
+            button20.Location = new Point(61, 146);
+            button20.Name = "button20";
+            button20.Size = new Size(69, 69);
+            button20.TabIndex = 21;
+            button20.Text = "MR";
+            button20.UseVisualStyleBackColor = true;
+            button20.Click += memoriaRecuperar;
+            // 
+            // button21
+            // 
+            button21.Font = new Font("Segoe UI", 15F);
+            button21.Location = new Point(136, 146);
+            button21.Name = "button21";
+            button21.Size = new Size(69, 69);
+            button21.TabIndex = 22;
+            button21.Text = "MC";
+            button21.UseVisualStyleBackColor = true;
+            button21.Click += memoriaClear;
+            // 
+            // button22
+            // 
+            button22.Font = new Font("Segoe UI", 15F);
+            button22.Location = new Point(286, 146);
+            button22.Name = "button22";
+            button22.Size = new Size(69, 69);
+            button22.TabIndex = 24;
+            button22.Text = "M-";
+            button22.UseVisualStyleBackColor = true;
+            button22.Click += memoriaRestar;
+            // 
+            // button23
+            // 
+            button23.Font = new Font("Segoe UI", 15F);
+            button23.Location = new Point(211, 146);
+            button23.Name = "button23";
+            button23.Size = new Size(69, 69);
+            button23.TabIndex = 23;
+            button23.Text = "M+";
+            button23.UseVisualStyleBackColor = true;
+            button23.Click += memoriaSumar;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(489, 499);
+            ClientSize = new Size(489, 539);
             Controls.Add(panel1);
+            Controls.Add(button22);
+            Controls.Add(button23);
+            Controls.Add(button21);
+            Controls.Add(button20);
             Controls.Add(textBox1);
             Controls.Add(button19);
             Controls.Add(button18);
@@ -361,5 +413,9 @@
         private TextBox textBox1;
         private Panel panel1;
         private Label label1;
+        private Button button20;
+        private Button button21;
+        private Button button22;
+        private Button button23;
     }
 }
