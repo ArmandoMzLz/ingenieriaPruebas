@@ -1,4 +1,4 @@
-# Calculadora V1
+# Calculadora V2
 
 ## Funciones
 - Operaciones ariméticas básicas
@@ -16,4 +16,4 @@
 	- MR
 	- MC
 
-![Calculadora](CalculadoraGif.gif)
+![Calculadora](CalculadoraGifV2.gif)
