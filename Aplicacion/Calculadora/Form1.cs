@@ -6,14 +6,15 @@ namespace Calculadora
     public partial class Form1 : Form
     {
         private float resultadoOperacion = 0;
-        private int contador = 0;
         private float numeroMemoria = 0;
+        private int contador = 0;
 
         private string simboloOperacion = string.Empty;
         private string[] historial = new string[5];
 
         private bool operacionRealizada = false;
         private bool operacionDisponible = false;
+        private bool operacionNueva = true;
 
         public Form1()
         {
@@ -46,7 +47,7 @@ namespace Calculadora
             }
 
             int indicePuntoDecimal = textBox1.Text.IndexOf(".");
-            if (indicePuntoDecimal >= 0)
+            if(indicePuntoDecimal >= 0)
             {
                 string decimales = textBox1.Text.Substring(indicePuntoDecimal + 1);
 
@@ -60,9 +61,34 @@ namespace Calculadora
         private void operacion(object sender, EventArgs eventArgs)
         {
             Button button = (Button)sender;
-            simboloOperacion = button.Text;
-            resultadoOperacion = float.Parse(textBox1.Text);
+            string operador = button.Text;
+            float numeroActual = float.Parse(textBox1.Text);
 
+            if(operacionNueva)
+            {
+                resultadoOperacion = numeroActual;
+                operacionNueva = false;
+            } else
+            {
+                switch(simboloOperacion)
+                {
+                    case "+": resultadoOperacion += numeroActual; break;
+                    case "-": resultadoOperacion -= numeroActual; break;
+                    case "x": resultadoOperacion *= numeroActual; break;
+                    case "/": 
+                        if(numeroActual == 0)
+                        {
+                            textBox1.Text = "Math ERROR"; break;
+                        }
+                        else
+                        {
+                            resultadoOperacion /= numeroActual; break;
+                        }
+                            
+                }
+            }
+            
+            simboloOperacion = operador;
             textBox1.Text = "0";
         }
 
@@ -97,6 +123,7 @@ namespace Calculadora
 
             operacionRealizada = true;
             operacionDisponible = true;
+            operacionNueva = true;
         }
 
         private void clearAll(object sender, EventArgs eventArgs)
@@ -129,12 +156,12 @@ namespace Calculadora
             }
         }
 
-        private void memoriaRecuperar(object sender, EventArgs eventArgs) => numeroMemoria = float.Parse(textBox1.Text);
+        private void memoriaRecuperar(object sender, EventArgs eventArgs) => textBox1.Text = numeroMemoria.ToString();
 
         private void memoriaClear(object sender, EventArgs eventArgs) => numeroMemoria = 0;
 
-        private void memoriaSumar(object sender, EventArgs eventArgs) => textBox1.Text = (float.Parse(textBox1.Text) + numeroMemoria).ToString();
+        private void memoriaSumar(object sender, EventArgs eventArgs) => numeroMemoria += float.Parse(textBox1.Text);
 
-        private void memoriaRestar(object sender, EventArgs eventArgs) => textBox1.Text = (float.Parse(textBox1.Text) - numeroMemoria).ToString();
+        private void memoriaRestar(object sender, EventArgs eventArgs) => numeroMemoria -= float.Parse(textBox1.Text);
     }
 }
