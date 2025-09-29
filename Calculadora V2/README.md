@@ -1,4 +1,4 @@
-# Calculadora V3
+# Calculadora V2
 
 ## Funciones
 - Operaciones ariméticas básicas
@@ -15,6 +15,5 @@
 	- M-
 	- MR
 	- MC
--Función de porcentaje
 
-![Calculadora](CalculadoraGifV3.gif)
+![Calculadora](CalculadoraGifV2.gif)
