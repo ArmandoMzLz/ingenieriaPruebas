@@ -15,6 +15,6 @@
 	- M-
 	- MR
 	- MC
--Función de porcentaje
+- Función de porcentaje
 
 ![Calculadora](CalculadoraGifV3.gif)
