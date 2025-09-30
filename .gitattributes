@@ -1,0 +1,2 @@
+*.exe filter=lfs diff=lfs merge=lfs -text
+Calculadora[[:space:]]V3/Aplicacion/Ejecutable/Calculadora.exe filter=lfs diff=lfs merge=lfs -text

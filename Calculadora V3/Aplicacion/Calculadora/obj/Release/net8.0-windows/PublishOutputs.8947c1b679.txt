@@ -1,0 +1,5 @@
+C:\Users\Administrador\Desktop\Semestre 5\Ingeniería de Pruebas\Calculadora\Calculadora V3\Aplicacion\Calculadora.exe
+C:\Users\Administrador\Desktop\Semestre 5\Ingeniería de Pruebas\Calculadora\Calculadora V3\Aplicacion\Calculadora.dll
+C:\Users\Administrador\Desktop\Semestre 5\Ingeniería de Pruebas\Calculadora\Calculadora V3\Aplicacion\Calculadora.deps.json
+C:\Users\Administrador\Desktop\Semestre 5\Ingeniería de Pruebas\Calculadora\Calculadora V3\Aplicacion\Calculadora.runtimeconfig.json
+C:\Users\Administrador\Desktop\Semestre 5\Ingeniería de Pruebas\Calculadora\Calculadora V3\Aplicacion\Calculadora.pdb

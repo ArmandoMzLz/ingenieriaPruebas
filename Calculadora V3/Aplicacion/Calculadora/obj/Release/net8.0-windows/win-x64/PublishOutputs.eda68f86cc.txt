@@ -1,0 +1,7 @@
+C:\Users\Administrador\Desktop\Semestre 5\Ingeniería de Pruebas\Calculadora\Calculadora V3\Calculadora.pdb
+C:\Users\Administrador\Desktop\Semestre 5\Ingeniería de Pruebas\Calculadora\Calculadora V3\D3DCompiler_47_cor3.dll
+C:\Users\Administrador\Desktop\Semestre 5\Ingeniería de Pruebas\Calculadora\Calculadora V3\PenImc_cor3.dll
+C:\Users\Administrador\Desktop\Semestre 5\Ingeniería de Pruebas\Calculadora\Calculadora V3\PresentationNative_cor3.dll
+C:\Users\Administrador\Desktop\Semestre 5\Ingeniería de Pruebas\Calculadora\Calculadora V3\vcruntime140_cor3.dll
+C:\Users\Administrador\Desktop\Semestre 5\Ingeniería de Pruebas\Calculadora\Calculadora V3\wpfgfx_cor3.dll
+C:\Users\Administrador\Desktop\Semestre 5\Ingeniería de Pruebas\Calculadora\Calculadora V3\Calculadora.exe
