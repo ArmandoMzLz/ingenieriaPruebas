@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - EcoShop</title>
+    <link rel="stylesheet" href="/css/Register.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <h2>Tienda E-commerce</h2>
+    </header>
+
+    <div class="content-wrapper">
+        <div class="login-container">
+            <img alt="Logo" class="logo">
+            <h1>Bienvenido a nuestra tienda</h1>
+            <% if (typeof error !== 'undefined' && error) { %>
+                <div class="errorMessage">
+                    <%= error %>
+                </div>
+            <% } %>
+            <form action="/Registro" method="POST">
+                <div class="input-group">
+                    <input type="text" name="nombre" placeholder="Nombre" required>
+                </div>
+                <div class="input-group">
+                    <input type="text" name="apellido" placeholder="Apellidos" required>
+                </div>
+                <div class="input-group">
+                    <input type="email" name="correo" placeholder="Correo electrónico" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" name="contrasena" placeholder="Contraseña" required>
+                </div>
+                <button type="submit" class="login-btn">Registrate</button>
+            </form>
+            
+            <div class="register-link">
+                ¿Ya tienes una cuenta? <a href="/">Inicia sesión</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer container -->
+    <div id="footer-container"></div>
+
+    <!-- Scripts -->
+    <script src="JS/footer-loader.js"></script>
+    <script src="JS/jsRegister.js"></script>
+</body>
+</html>

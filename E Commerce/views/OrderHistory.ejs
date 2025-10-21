@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Historial de Pedidos - EcoShop</title>
+    <link rel="stylesheet" href="/css/car.css" />
+    <style>
+        body { font-family: Arial, sans-serif; display:flex; flex-direction:column; min-height:100vh; margin:0; }
+        main { flex:1; padding:40px 20px; max-width:1200px; margin:0 auto; }
+        h1 { text-align:center; margin-bottom:30px; color:#222; }
+
+        .filter-container {
+            display:flex;
+            flex-wrap:wrap;
+            gap:10px;
+            margin-bottom:20px;
+            justify-content:center;
+            align-items:center;
+        }
+
+        .filter-container label {
+            font-weight:bold;
+        }
+
+        .filter-container input {
+            padding:5px 8px;
+            border-radius:6px;
+            border:1px solid #ccc;
+        }
+
+        .btn-clear {
+            padding:5px 10px;
+            border:none;
+            background-color:#f44336;
+            color:white;
+            border-radius:6px;
+            cursor:pointer;
+        }
+
+        .order-card { background-color:#fff; padding:25px; border-radius:16px; box-shadow:0 4px 10px rgba(0,0,0,0.1); position:relative; }
+        .order-card h2 { color:#009688; margin-bottom:15px; }
+        .order-card p { margin:5px 0; color:#444; }
+        .order-products { margin-top:15px; border-top:1px solid #ddd; padding-top:10px; }
+        .order-product { display:flex; align-items:center; gap:15px; margin-bottom:10px; }
+        .order-product img { width:60px; border-radius:8px; }
+        .order-total { text-align:right; font-weight:bold; margin-top:10px; font-size:1.1em; }
+
+        .btn-delete-order {
+            position:absolute;
+            top:20px;
+            right:20px;
+            padding:5px 10px;
+            background-color:#f44336;
+            color:white;
+            border:none;
+            border-radius:6px;
+            cursor:pointer;
+        }
+        .btn-delete-order:hover { background-color:#c62828; }
+
+        @media (max-width:768px) {
+            .order-product { flex-direction:column; align-items:flex-start; }
+            .order-total { text-align:left; }
+        }
+    </style>
+</head>
+<body>
+    <%- include('partials/header')%>
+    <main>
+        <h1>Historial de Pedidos</h1>
+
+        <div class="filter-container">
+            <label for="start-date">Desde:</label>
+            <input type="date" id="start-date" />
+            <label for="end-date">Hasta:</label>
+            <input type="date" id="end-date" />
+            <button class="btn-clear" id="clear-filters">Limpiar filtros</button>
+        </div>
+
+        <div class="order-history-container">
+            <% if(error) {%>
+                <p><%= error %></p>
+            <% } else if(pedidos.length === 0) { %>
+                <p>No hay pedidos que mostrar</p>
+            <% } else {%>
+                <%
+                    let pedidoActual = null;
+                    pedidos.forEach(pedido => {
+                        if(pedidoActual !== pedido.idPedido) {
+                            if(pedidoActual !== null) { %>
+                                </table>
+                            <% } %>
+                            <h2>Pedido #<%= pedido.idPedido %></h2>
+                            <p>Fecha: <%= new Date(pedido.fechaPedido).toLocaleString() %></p>
+                            <p>Total: $<%= pedido.totalPedido %> MXN</p>
+                            <table class="productsTable">
+                                <tr>
+                                    <th></th>
+                                    <th>Producto</th>
+                                    <th>Cantidad</th>
+                                    <th>Subtotal</th>
+                                </tr>
+                            <% }
+                            pedidoActual = pedido.idPedido;
+                        %>
+                        <tr>
+                            <td><img src="<% pedido.imagenProductoRuta %>" /></td>
+                            <td><%= pedido.nombreProducto %></td>
+                            <td align="center"><%= pedido.cantidad %></td>
+                            <td>$<%= pedido.subtotal %> MXN</td>
+                        </tr>
+                    <% }); %>
+                </table>
+            <% } %>
+        </div>
+    </main>
+
+    <%- include('partials/footer')%>
+</body>
+</html>

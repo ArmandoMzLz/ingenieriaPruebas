@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Carrito de Compras - EcoShop</title>
+    <link rel="stylesheet" href="/css/car.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        main {
+            flex: 1;
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #222;
+        }
+
+        .cart-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .cart-products,
+        .checkout-form {
+            flex: 1 1 500px;
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 1rem;
+        }
+
+        .cart-products h2,
+        .checkout-form h2 {
+            margin-bottom: 15px;
+            color: #009688;
+        }
+
+        .product-item {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+        .product-item img {
+            width: 80px;
+            border-radius: 8px;
+        }
+
+        .product-info p {
+            margin: 3px 0;
+            font-size: 0.95em;
+        }
+
+        .product-actions {
+            text-align: right;
+        }
+
+        .product-actions input[type="number"] {
+            width: 60px;
+            padding: 5px;
+            margin-right: 10px;
+        }
+
+        .btn-remove {
+            padding: 5px 10px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+
+        .btn-remove:hover {
+            background-color: #c62828;
+        }
+
+        .checkout-form label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        .checkout-form input,
+        .checkout-form select,
+        .checkout-form textarea {
+            width: 100%;
+            padding: 8px 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1em;
+        }
+
+        .checkout-form textarea {
+            resize: vertical;
+        }
+
+        .checkout-form button {
+            margin-top: 20px;
+            width: 100%;
+            padding: 12px;
+            background-color: #009688;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .checkout-form button:hover {
+            background-color: #00796b;
+        }
+
+        .cart-total {
+            margin-top: 20px;
+            font-size: 1.2em;
+            text-align: right;
+            font-weight: bold;
+        }
+
+        @media (max-width: 900px) {
+            .cart-container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <%- include('partials/header')%>
+    <main>
+        <h1>Tu Carrito de Compras</h1>
+        <div class="cart-container">
+            <div class="cart-products">
+                <h2>Productos</h2>
+                <div id="cart-items">
+                    <% if(carrito.length===0) { %>
+                        <p>Tu carrito esta vacío</p>
+                    <% } else { %>
+                        <table class="productsTable">
+                            <tr>
+                                <th></th>
+                                <th>Producto</th>
+                                <th>Precio</th>
+                                <th>Cantidad</th>
+                                <th>Total</th>
+                                <th></th>
+                            </tr>
+                            <% carrito.forEach(item=> { %>
+                                <tr>
+                                    <td><img src="<%= item.imagen %>" alt="<%= item.nombre %>" /></td>
+                                    <td><%= item.nombre %></td>
+                                    <td>$<%= item.precio %></td>
+                                    <td align="center"><%= item.cantidad %></td>
+                                    <td>$<%= (item.precio * item.cantidad) %></td>
+                                    <td>
+                                        <form action="/Carrito-de-Compras/eliminar" method="POST">
+                                            <input type="hidden" name="idProducto" value="<%= item.idProducto %>">
+                                            <button>Eliminar</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            <% }); %>
+                        </table>
+                    </div>
+                    <div class="cart-total" id="cart-total">Total: $<%= total %> MXN</div>
+                    <% } %>
+            </div>
+        </div>
+            <div class="checkout-form">
+                <h2>Información de Envío y Pago</h2>
+                <form action="/Carrito-de-Compras/finalizar-compra" method="POST" id="checkout-form">
+                    <label for="nombre">Nombre completo del destinatario</label>
+                    <input type="text" id="nombre" name="nombre" placeholder="Ej. Juan Pérez" required />
+
+                    <label for="direccion">Dirección completa</label>
+                    <textarea id="direccion" name="direccion"
+                        placeholder="Calle, número, colonia, ciudad, estado, código postal" required></textarea>
+
+                    <label for="telefono">Teléfono de contacto</label>
+                    <input type="tel" id="telefono" name="telefono" placeholder="Ej. 55-1234-5678" required />
+
+                    <label for="metodo-pago">Método de pago</label>
+                    <select id="metodo-pago" name="metodo-pago" required>
+                        <option value="">Selecciona un tipo</option>
+                        <option value="Visa">Visa</option>
+                        <option value="MasterCard">MasterCard</option>
+                        <option value="Amex">American Express</option>
+                        <option value="Discover">Discover</option>
+                    </select>
+
+                    <button type="submit">Finalizar Compra</button>
+                </form>
+            </div>
+    </main>
+
+    <%- include('partials/footer')%>
+</body>
+
+</html>

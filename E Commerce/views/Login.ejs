@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - EcoShop</title>
+    <!-- CSS separado -->
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <h2>Tienda E-commerce</h2>
+    </header>
+
+    <!-- Contenedor principal -->
+    <div class="content-wrapper">
+        <div class="login-container">
+            <img alt="Logo" class="logo">
+            <h1>Bienvenido a Pluggix</h1>
+            <% if (typeof error !== 'undefined' && error) { %>
+                <div class="errorMessage">
+                    <%= error %>
+                </div>
+            <% } %>
+            <form action="/" method="POST">
+                <div class="input-group">
+                    <input type="email" name="correo" placeholder="Correo electrónico" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" name="contrasena" placeholder="Contraseña" required>
+                </div>
+                <button type="submit" class="login-btn">Iniciar Sesión</button>
+            </form>
+            
+            <div class="register-link">
+                Provisional <a href="/Pagina-Principal">Home</a>
+            </div>
+            
+            <div class="register-link">
+                ¿No tienes una cuenta? <a href="/Registro">Regístrate aquí</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contenedor del footer 
+    <div id="footer-container"></div>
+
+     JS Footer 
+    <script src="JS/footer-loader.js"></script>
+     JS específico de Login 
+    <script src="JS/jsLogin.js"></script>-->
+</body>
+</html>

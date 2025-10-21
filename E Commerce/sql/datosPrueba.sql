@@ -1,0 +1,13 @@
+INSERT INTO productos(nombreProducto, imagenProductoRuta, marcaProducto, precioProducto, cantidadProducto, descripcionProducto, categoriaProducto) 
+	VALUES('Tarjeta de Video Sapphire AMD Radeon RX 9070 XT', '/img/sapphireRadeonRx9070xt16gb.png', 'AMD', 14389.00, 5, 'Componente de alto rendimiento diseñado para satisfacer las necesidades de los entusiastas de los videojuegos y los profesionales del diseño gráfico.', 'Tarjeta Gráfica');
+INSERT INTO productos(nombreProducto, imagenProductoRuta, marcaProducto, precioProducto, cantidadProducto, descripcionProducto, categoriaProducto) 
+	VALUES('Tarjeta de Video MSI NVIDIA GeForce RTX 5080 VANGUARD SOC', '/img/geForceRTX508016GVanguard.png', 'Nvidia', 28549.00, 2, 'Esta tarjeta pertenece a la familia de procesadores gráficos NVIDIA y está diseñada para ofrecer una experiencia visual excepcional, soportando hasta cuatro pantallas simultáneamente.', 'Tarjeta Gráfica');
+INSERT INTO productos(nombreProducto, imagenProductoRuta, marcaProducto, precioProducto, cantidadProducto, descripcionProducto, categoriaProducto) 
+	VALUES('Procesador Intel Core Ultra 5 245K con Intel Graphics', '/img/intelCoreULTRA5245K.jpg', 'Intel', 4579.00, 12, 'Este procesador cuenta con 14 núcleos, de los cuales 6 son núcleos de rendimiento y 8 son núcleos eficientes, ofreciendo un rendimiento total de hasta 30 TOPs.', 'Procesador');
+INSERT INTO productos(nombreProducto, imagenProductoRuta, marcaProducto, precioProducto, cantidadProducto, descripcionProducto, categoriaProducto) 
+	VALUES('Procesador AMD Ryzen 7 9800X3D con AMD Radeon Graphics', '/img/amdRyzen78900X3DAM5.jpg', 'AMD', 9479.00, 7, ' Es una potente unidad de procesamiento diseñada para el segmento de escritorio. Con una litografía de 4 nm, este procesador de la familia AMD Ryzen 7 pertenece a la generación 9000.', 'Procesador');
+INSERT INTO productos(nombreProducto, imagenProductoRuta, marcaProducto, precioProducto, cantidadProducto, descripcionProducto, categoriaProducto) 
+	VALUES('Memoria RAM XPG Spectrix D35G DDR4, 3200MHz, 16GB, CL16, XMP', '/img/memoriaGAMMIXD35DDR4.png', 'XPG', 919.00, 34, 'Ha sido sometido a estrictos procedimientos de selección y control, superando pruebas de fiabilidad y compatibilidad, y ofrece un producto resistente y duradero que representa la más alta calidad.', 'RAM');
+INSERT INTO productos(nombreProducto, imagenProductoRuta, marcaProducto, precioProducto, cantidadProducto, descripcionProducto, categoriaProducto) 
+	VALUES('Kit Memoria RAM Kingston FURY Beast DDR4, 3200MHz, 16GB - 2 x 8GB, CL16, XMP', '/img/memoriaKingstonFury16GB.png', 'Kingston', 1309.00, 28, 'Este módulo de memoria interna tipo DDR4 presenta un color negro y cuenta con un factor de forma de 288 pines DIMM.', 'RAM');
+    

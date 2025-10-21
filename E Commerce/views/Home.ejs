@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Home - EcoShop</title>
+    <link rel="stylesheet" href="/css/home.css" />
+</head>
+
+<body>
+    <%- include('partials/header')%>
+
+    <form action="/Pagina-Principal" method="GET" class="search-form">
+        <input type="text" name="q" placeholder="¿Qué producto buscas?" value="<%= typeof query !== 'undefined' ? query : '' %>">
+        <button type="submit">
+            <img type="image" src="/favicon/search.svg"/>
+        </button>
+    </form>
+
+    <div class="main-wrapper">
+        <aside class="sidebar">
+            <h3>Categorías</h3>
+            <nav>
+                <ul>
+                    <li><a href="#">Procesadores</a></li>
+                    <li><a href="#">Tarjetas Gráficas</a></li>
+                    <li><a href="#">Memorias RAM</a></li>
+                    <li><a href="#">Discos Duros / SSD</a></li>
+                    <li><a href="#">Placas Base</a></li>
+                    <li><a href="#">Fuentes de Poder</a></li>
+                    <li><a href="#">Gabinetes</a></li>
+                    <li><a href="#">Refrigeración</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="product-list">
+            <h1>Componentes de PC destacados</h1>
+            <div class="products-grid">
+                <% if(productos.length===0) { %>
+                    <p>No hay productos que mostrar</p>
+                <% } else { %>
+                    <% productos.forEach(producto => { %>
+                        <article class="product-card">
+                            <img src="<%= producto.imagenProductoRuta %>" alt="<% producto.nombreProducto %>"/>
+                            <h2><%= producto.nombreProducto %></h2>
+                            <p><%= producto.descripcionProducto %></p>
+                            <p class="price">$<%= producto.precioProducto %> MXN</p>
+                            <form action="/Pagina-Principal/agregarCarrito" method="POST">
+                                <input type="hidden" name="idProducto" value="<%= producto.idProducto %>">
+                                <input type="hidden" name="nombre" value="<%= producto.nombreProducto %>">
+                                <input type="hidden" name="precio" value="<%= producto.precioProducto %>">
+                                <input type="hidden" name="imagen" value="<%= producto.imagenProductoRuta %>">
+                                <button type="submit" class="btn-buy">Comprar</button>
+                            </form>
+                        </article>
+                    <% }); %>
+                <% } %>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer dinámico -->
+    <div id="footer-container"></div>
+
+    <!-- Scripts dinámicos -->
+    <script src="JS/jsHeader.js"></script>
+    <script src="JS/footer-loader.js"></script>
+
+    <%- include('partials/footer')%>
+</body>
+</html>

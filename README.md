@@ -1,6 +1,6 @@
-# Calculadora V3
+# Calculadora y Página Web de E Commerce
 
-## Funciones
+## Calculadora
 - Operaciones ariméticas básicas
 	- Suma
 	- Resta
@@ -17,4 +17,8 @@
 	- MC
 - Función de porcentaje
 
-![Calculadora](CalculadoraGifV3.gif)
+## E Commerce
+- Login y Registro de usuarios
+- Carrito de Compra
+- Historial de Compras
+- Confirmaciones de Compras por correo electrónico
