@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Registrar Método de Pago - EcoShop</title>
+    <title>Registrar Método de Pago</title>
     <link rel="stylesheet" href="/css/car.css" /> 
+    <link rel="icon" href="/favicon/logo.ico">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -65,7 +66,19 @@
     <main>
         <h1>Registrar Método de Pago</h1>
         <div class="payment-form">
-            <form action="/metodo-pago" method="POST">
+            <form action="/Metodos-de-Pago" method="POST">
+
+                <% if(error) { %>
+                    <div class="errorMessage">
+                        <%= error %>
+                    </div>
+                <% } %>
+                <% if(exito) { %>
+                    <div class="successMessage">
+                        <%= exito %>
+                    </div>
+                <% } %>
+
                 <label for="tipo">Tipo de tarjeta</label>
                 <select id="tipoTarjeta" name="tipoTarjeta" required>
                     <option value="">Selecciona un tipo</option>

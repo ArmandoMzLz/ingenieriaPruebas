@@ -3,18 +3,51 @@ const db = require('../db');
 const nodemailer = require('nodemailer');
 const router = express.Router();
 
+require('dotenv').config();
+
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'tuCorreoVaAqui@gmail.com',
-        pass: 'contrasena' //se debe de colocar una contrasenña de aplicacion (en gmail -> Administrar tu cuenta de Google -> seguridad -> contraseña de aplicaciones)
+        user: process.env.MAIL_USER, //escribir una direccion de correo
+        pass: process.env.MAIL_PASS //se debe de colocar una contraseña de aplicacion (en gmail -> Administrar tu cuenta de Google -> seguridad -> contraseña de aplicaciones)
     }
-})
+});
 
 router.get('/', (req, res) => {
+    const correoUsuario = req.session?.usuario?.correo;
+
+    if(!correoUsuario) {
+        return res.redirect('/');
+    }
+    
     const carrito = req.session.carrito || [];
     const total = carrito.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
     res.render('./Car', {carrito, total});
+});
+
+router.post('/agregarCarrito', (req, res) => {
+    const { idProducto, nombre, precio, cantidad, imagen, paginaOrigen } = req.body;
+
+    if(!req.session.carrito) {
+        req.session.carrito = [];
+    }
+
+    const productoExistente = req.session.carrito.find(p => p.idProducto === parseInt(idProducto));
+
+    if(productoExistente) {
+        productoExistente.cantidad += 1;
+    } else {
+        req.session.carrito.push({
+            idProducto: parseInt(idProducto),
+            nombre,
+            precio: parseFloat(precio),
+            cantidad: parseInt(cantidad) || 1,
+            imagen
+        });
+    }
+
+    const redirectUrl = paginaOrigen ? `${paginaOrigen}${paginaOrigen.includes('?') ? '&' : '?'}added=true` : '/Pagina-Principal?added=true';
+    res.redirect(redirectUrl);
 });
 
 router.post('/eliminar', (req, res) => {
@@ -34,6 +67,14 @@ router.post('/finalizar-compra', (req, res) => {
     }
 
     const total = carrito.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
+
+    const sqlRegistrarDatos = 'CALL datosDomicilio(?, ?, ?)';
+    const { direccion, telefono } = req.body;
+    db.query(sqlRegistrarDatos, [correo, direccion, telefono], (err) => {
+        if(err) {
+            console.log(err);
+        }
+    })
     
     const sqlCrearPedido = 'CALL crearPedido(?, ?, @nuevoPedido)';
     db.query(sqlCrearPedido, [correo, total], (err) => {
@@ -71,11 +112,11 @@ router.post('/finalizar-compra', (req, res) => {
             `).join('');
 
             const mailOptions = {
-                from: 'tuCorreoVaAqui@gmail.com',
+                from: process.env.MAIL_USER, //escribir una direccion de correo
                 to: correo,
-                subject: 'Confirmación de Compra',
+                subject: '¡Muchas gracias por tu compra!',
                 html: `
-                    <h2>¡Muchas gracias por tu compra!</h2>
+                    <h2>Gracias por tu reciente compra</h2>
                     <p>Tu pedido con el número <b>${idPedido} ha sido registrado correctamente</b></p>
                     <table border="1" cellpadding="5" cellspacing="0">
                         <tr>

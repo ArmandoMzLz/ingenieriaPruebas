@@ -18,24 +18,24 @@ FOREIGN KEY(correoElectronico)
 );
 
 CREATE TABLE usuariosMetodosPago(
-correoElectronico VARCHAR(50),
+correoElectronico VARCHAR(50) NOT NULL,
 tipoTarjeta VARCHAR(20),
 numeroTarjeta VARCHAR(20),
 nombreTitular VARCHAR(50),
 fechaVencimiento DATE,
 cvv INT(3),
 FOREIGN KEY(correoElectronico)
-	REFERENCES usuariosLogin(correoElectronico) ON UPDATE CASCADE
+	REFERENCES usuariosLogin(correoElectronico)
 );
 
 CREATE TABLE productos(
 idProducto INT AUTO_INCREMENT,
-nombreProducto VARCHAR(100) NOT NULL,
+nombreProducto VARCHAR(150) NOT NULL,
 imagenProductoRuta VARCHAR(50) NOT NULL,
 marcaProducto VARCHAR(30) NOT NULL,
 precioProducto DECIMAL(10, 2) NOT NULL,
 cantidadProducto INT NOT NULL,
-descripcionProducto VARCHAR(200) NOT NULL,
+descripcionProducto VARCHAR(300) NOT NULL,
 categoriaProducto VARCHAR(30) NOT NULL,
 PRIMARY KEY(idProducto)
 );
@@ -62,5 +62,3 @@ FOREIGN KEY(idPedido)
 FOREIGN KEY(idProducto)
 	REFERENCES productos(idProducto)
 );
-
-DROP DATABASE eCommerce;

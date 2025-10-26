@@ -22,3 +22,5 @@
 - Carrito de Compra
 - Historial de Compras
 - Confirmaciones de Compras por correo electrónico
+
+![paginaWeb](paginaECommerce.gif)

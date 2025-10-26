@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Historial de Pedidos - EcoShop</title>
+    <title>Historial de Pedidos</title>
     <link rel="stylesheet" href="/css/car.css" />
+    <link rel="icon" href="/favicon/logo.ico">
     <style>
         body { font-family: Arial, sans-serif; display:flex; flex-direction:column; min-height:100vh; margin:0; }
         main { flex:1; padding:40px 20px; max-width:1200px; margin:0 auto; }
@@ -70,14 +71,6 @@
     <main>
         <h1>Historial de Pedidos</h1>
 
-        <div class="filter-container">
-            <label for="start-date">Desde:</label>
-            <input type="date" id="start-date" />
-            <label for="end-date">Hasta:</label>
-            <input type="date" id="end-date" />
-            <button class="btn-clear" id="clear-filters">Limpiar filtros</button>
-        </div>
-
         <div class="order-history-container">
             <% if(error) {%>
                 <p><%= error %></p>
@@ -105,7 +98,7 @@
                             pedidoActual = pedido.idPedido;
                         %>
                         <tr>
-                            <td><img src="<% pedido.imagenProductoRuta %>" /></td>
+                            <td><img src="<%= pedido.imagenProductoRuta %>" alt="<%= pedido.nombreProducto %>"></td>
                             <td><%= pedido.nombreProducto %></td>
                             <td align="center"><%= pedido.cantidad %></td>
                             <td>$<%= pedido.subtotal %> MXN</td>

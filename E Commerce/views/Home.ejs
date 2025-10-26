@@ -4,8 +4,9 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Home - EcoShop</title>
+    <title>Pagina Principal</title>
     <link rel="stylesheet" href="/css/home.css" />
+    <link rel="icon" href="/favicon/logo.ico">
 </head>
 
 <body>
@@ -13,24 +14,26 @@
 
     <form action="/Pagina-Principal" method="GET" class="search-form">
         <input type="text" name="q" placeholder="¿Qué producto buscas?" value="<%= typeof query !== 'undefined' ? query : '' %>">
-        <button type="submit">
-            <img type="image" src="/favicon/search.svg"/>
+        <button type="submit" aria-label="Buscar">
+            <img type="image" src="/favicon/search.png" alt="Buscar"/>
         </button>
     </form>
 
     <div class="main-wrapper">
         <aside class="sidebar">
-            <h3>Categorías</h3>
+        <h3>Categorías</h3>
             <nav>
                 <ul>
-                    <li><a href="#">Procesadores</a></li>
-                    <li><a href="#">Tarjetas Gráficas</a></li>
-                    <li><a href="#">Memorias RAM</a></li>
-                    <li><a href="#">Discos Duros / SSD</a></li>
-                    <li><a href="#">Placas Base</a></li>
-                    <li><a href="#">Fuentes de Poder</a></li>
-                    <li><a href="#">Gabinetes</a></li>
-                    <li><a href="#">Refrigeración</a></li>
+                    <li><a href="/Pagina-Principal?categoria=Procesador">Procesadores</a></li>
+                    <li><a href="/Pagina-Principal?categoria=Tarjeta gráfica">Tarjetas Gráficas</a></li>
+                    <li><a href="/Pagina-Principal?categoria=RAM">Memorias RAM</a></li>
+                    <li><a href="/Pagina-Principal?categoria=HDD">HDD</a></li>
+                    <li><a href="/Pagina-Principal?categoria=SSD">SDD</a></li>
+                    <li><a href="/Pagina-Principal?categoria=Tarjeta madre">Tarjetas Madre</a></li>
+                    <li><a href="/Pagina-Principal?categoria=Fuente de alimentación">Fuentes de Poder</a></li>
+                    <li><a href="/Pagina-Principal?categoria=Gabinete">Gabinetes</a></li>
+                    <li><a href="/Pagina-Principal?categoria=Refrigeracion">Refrigeración</a></li>
+                    <li><a href="/Pagina-Principal">Todos los Productos</a></li>
                 </ul>
             </nav>
         </aside>
@@ -42,31 +45,40 @@
                     <p>No hay productos que mostrar</p>
                 <% } else { %>
                     <% productos.forEach(producto => { %>
-                        <article class="product-card">
-                            <img src="<%= producto.imagenProductoRuta %>" alt="<% producto.nombreProducto %>"/>
-                            <h2><%= producto.nombreProducto %></h2>
-                            <p><%= producto.descripcionProducto %></p>
-                            <p class="price">$<%= producto.precioProducto %> MXN</p>
-                            <form action="/Pagina-Principal/agregarCarrito" method="POST">
-                                <input type="hidden" name="idProducto" value="<%= producto.idProducto %>">
-                                <input type="hidden" name="nombre" value="<%= producto.nombreProducto %>">
-                                <input type="hidden" name="precio" value="<%= producto.precioProducto %>">
-                                <input type="hidden" name="imagen" value="<%= producto.imagenProductoRuta %>">
-                                <button type="submit" class="btn-buy">Comprar</button>
-                            </form>
-                        </article>
+                        <a href="/Detalles/<%= producto.idProducto %>" style="text-decoration: none;">
+                            <article class="product-card">
+                                <img src="<%= producto.imagenProductoRuta %>" alt="<% producto.nombreProducto %>"/>
+                                <h2><%= producto.nombreProducto %></h2>
+                                <p><%= producto.descripcionProducto %></p>
+                                <p class="price">$<%= producto.precioProducto %> MXN</p>
+                                <form action="Carrito-de-Compras/agregarCarrito" method="POST">
+                                    <input type="hidden" name="idProducto" value="<%= producto.idProducto %>">
+                                    <input type="hidden" name="nombre" value="<%= producto.nombreProducto %>">
+                                    <input type="hidden" name="precio" value="<%= producto.precioProducto %>">
+                                    <input type="hidden" name="imagen" value="<%= producto.imagenProductoRuta %>">
+                                    <input type="hidden" name="paginaOrigen" value="/Pagina-Principal<%= categoria ? '?categoria=' + categoria : (query ? '?q=' + query : '') %>">
+                                    <button type="submit" class="btn-buy">Comprar</button>
+                                </form>
+                            </article>
+                        </a>
                     <% }); %>
                 <% } %>
             </div>
+
+            <% if (added) { %>
+                <div id="added-popup" class="popup">
+                    Producto agregado al carrito
+                </div>
+            <% } %>
+            <script>
+                const popup = document.getElementById('added-popup');
+                if (popup) {
+                    popup.style.display = 'block';
+                    setTimeout(() => popup.style.display = 'none', 2500);
+                }
+            </script>
         </main>
     </div>
-
-    <!-- Footer dinámico -->
-    <div id="footer-container"></div>
-
-    <!-- Scripts dinámicos -->
-    <script src="JS/jsHeader.js"></script>
-    <script src="JS/footer-loader.js"></script>
 
     <%- include('partials/footer')%>
 </body>

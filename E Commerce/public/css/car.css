@@ -9,116 +9,6 @@
     --color-border: #ddd;
     --color-btn-hover: #a50f6b;
 }
-/* HEADER */
-.main-header {
-    background-color: var(--color-primary);
-    color: var(--color-white);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem 2rem;
-    flex-wrap: wrap;
-}
-
-/* Título y dropdown */
-.header-title-menu {
-    position: relative;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.3rem;
-    font-weight: 700;
-    font-size: 1.2rem;
-}
-
-.arrow-down {
-    font-size: 0.6rem;
-    transition: transform 0.3s ease;
-}
-
-.dropdown-menu {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: var(--color-primary);
-    color: var(--color-white);
-    border-radius: 0 0 8px 8px;
-    list-style: none;
-    padding: 0.5rem 0;
-    margin: 0;
-    min-width: 200px;
-    display: none;
-    z-index: 10;
-}
-
-.header-title-menu:hover .dropdown-menu {
-    display: block;
-}
-
-.dropdown-menu li a {
-    display: block;
-    padding: 0.5rem 1rem;
-    color: var(--color-white);
-    text-decoration: none;
-    font-size: 0.9rem;
-    font-weight: 600;
-}
-
-.dropdown-menu li a:hover {
-    background-color: var(--color-primary-dark);
-}
-
-/* Buscador */
-.search-form {
-    display: flex;
-    align-items: center;
-    flex-grow: 1;
-    max-width: 400px;
-    margin: 0 1rem;
-}
-
-.search-form input[type="search"] {
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 3px 0 0 3px;
-    width: 100%;
-}
-
-.search-form button {
-    background-color: var(--color-primary-light);
-    color: var(--color-white);
-    border: none;
-    padding: 0.5rem 1.2rem;
-    border-radius: 0 3px 3px 0;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-.search-form button:hover {
-    background-color: var(--color-btn-hover);
-}
-
-/* Carrito */
-.cart-link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 48px;
-    height: 48px;
-    margin-left: 1rem;
-}
-
-.cart-link img {
-    max-width: 100%;
-    max-height: 100%;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
 
 /* Main Wrapper */
 .main-wrapper {
@@ -168,6 +58,22 @@
     cursor: pointer;
     font-weight: 600;
     color: var(--color-text);
+}
+
+.errorMessage {
+    color: rgba(219, 12, 12, 0.772);
+    padding: 10px;
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.successMessage {
+    color: rgb(15, 128, 7);
+    padding: 10px;
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 /* Botones */

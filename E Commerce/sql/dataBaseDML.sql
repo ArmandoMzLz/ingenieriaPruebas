@@ -1,5 +1,3 @@
-USE eCommerce;
-
 DELIMITER //
 CREATE PROCEDURE loginUsuario (
 	IN correo VARCHAR(50),
@@ -28,6 +26,8 @@ BEGIN
 		VALUES (correo, contrasena);
 	INSERT INTO usuariosDatos (correoElectronico, nombreUsuario, apellidoUsuario)
 		VALUES (correo, nombre, apellido);
+	INSERT INTO usuariosMetodosPago (correoElectronico)
+		VALUES (correo);
 	COMMIT;
 END//
 DELIMITER ;
@@ -35,17 +35,35 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE datosTarjeta (
 	IN correo VARCHAR(50),
-    IN tipoTarjeta VARCHAR(20),
-    IN numeroTarjeta VARCHAR(20),
+    IN tipoTar VARCHAR(20),
+    IN numeroTar VARCHAR(20),
     IN titular VARCHAR(50),
     IN vencimiento DATE,
-    IN cvv VARCHAR(3))
+    IN cvvTar VARCHAR(3))
 BEGIN
-	INSERT INTO usuariosMetodosPago(tipoTarjeta, numeroTarjeta, nombreTitular, fechaVencimiento, cvv)
-    SELECT correo, tipoTarjeta, numeroTarjeta, titular, vencimiento, cvv
-	FROM usuarios
-    WHERE correoElectronico = correo;
+	UPDATE usuariosMetodosPago
+    SET
+		tipoTarjeta = tipoTar,
+        numeroTarjeta = numeroTar,
+        nombreTitular = titular,
+        fechaVencimiento = vencimiento,
+		cvv = cvvTar
+	WHERE correoElectronico = correo;
 END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE datosDomicilio (
+	IN correo VARCHAR(50),
+    IN domicilio VARCHAR(100),
+    IN telefono VARCHAR(10))
+BEGIN
+	UPDATE usuariosDatos
+    SET
+		domicilioUsuario = domicilio,
+        telefonoUsuario = telefono
+	WHERE correoElectronico = correo;
+END//
 DELIMITER ;
 
 DELIMITER //
@@ -70,6 +88,41 @@ BEGIN
 		FROM productos
 		WHERE nombreProducto LIKE CONCAT('%', termino, '%') OR categoriaProducto LIKE CONCAT('%', termino, '%') OR marcaProducto LIKE CONCAT('%', termino, '%');
 	END IF;
+END//
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE mostrarProductosCategoria (
+	IN categoria VARCHAR(50))
+BEGIN
+	SELECT 
+		idProducto,
+		imagenProductoRuta,
+		nombreProducto,
+		descripcionProducto,
+		precioProducto
+	FROM productos
+	WHERE categoriaProducto = categoria;
+END//
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE obtenerProductoID(
+	IN productoID INT)
+BEGIN
+	SELECT idProducto, nombreProducto, imagenProductoRuta, marcaProducto, precioProducto, descripcionProducto, categoriaProducto
+    FROM productos
+    WHERE idProducto = productoID;
+END//
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE obtenerProductoCategoria(
+	IN productoCategoria VARCHAR(30))
+BEGIN
+	SELECT idProducto, nombreProducto, imagenProductoRuta, marcaProducto, precioProducto, descripcionProducto, categoriaProducto
+    FROM productos
+    WHERE categoriaProducto = productoCategoria;
 END//
 DELIMITER ;
 
@@ -116,5 +169,3 @@ BEGIN
     VALUES(idPedido, idProducto, cantidad, subtotal);
 END//
 DELIMITER ;
-
-DROP PROCEDURE historialPedidos

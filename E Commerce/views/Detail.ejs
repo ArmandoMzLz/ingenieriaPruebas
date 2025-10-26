@@ -3,29 +3,70 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Detalle del Producto - EcoShop</title>
-
-    <!-- CSS -->
+    <title>Detalle del Producto</title>
     <link rel="stylesheet" href="/css/detail.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="icon" href="/favicon/logo.ico">
 </head>
 <body>
-    <!-- Header dinámico -->
-    <div id="header-container"></div>
+    <%- include('partials/header')%>
 
-    <!-- Contenedor principal del producto -->
     <main>
-        <div id="product-detail" class="product-detail-container">
-            <p>Cargando información del producto...</p>
-        </div>
+        <% if(error) { %>
+            <p class="errorMessage"><%= error %></p>
+        <% } else if(producto) { %>
+            <div class="product-detail-container">
+                <h1><%= producto.nombreProducto %></h1>
+                <div class="product-content">
+                    <div class="product-image">
+                        <img src="<%= producto.imagenProductoRuta %>" alt="<%= producto.nombreProducto %>">
+                    </div>
+                    <div class="productDetails">
+                        <h3><%= producto.marcaProducto %></h3>
+                        <p><%= producto.descripcionProducto %></p>
+                        <p class="category"><%= producto.categoriaProducto %></p>
+                        <p class="price">$<%= producto.precioProducto %> MXN</p>
+                        <form action="/Carrito-de-Compras/agregarCarrito" method="POST">
+                            <input type="hidden" name="idProducto" value="<%= producto.idProducto %>">
+                            <input type="hidden" name="nombre" value="<%= producto.nombreProducto %>">
+                            <input type="hidden" name="precio" value="<%= producto.precioProducto %>">
+                            <input type="hidden" name="imagen" value="<%= producto.imagenProductoRuta %>">
+                            <input type="hidden" name="paginaOrigen" value="/Detalles/<%= producto.idProducto %>">
+                            <button type="submit" class="purchase">Comprar</button>
+                        </form>
+                    </div>
+                </div>   
+            </div>
+
+            <% if(similares && similares.length > 0) { %>
+                <section class="similarProducts">
+                    <h2>Otros productos similares</h2>
+                    <div class="similarGrid">
+                        <% similares.forEach(sim => { %>
+                            <a href="/Detalles/<%= sim.idProducto %>" class="similarCard">
+                                <img src="<%= sim.imagenProductoRuta %>" alt="<%= sim.nombreProducto %>">
+                                <h4><%= sim.nombreProducto %></h4>
+                                <p>$<%= sim.precioProducto %> MXN</p>
+                            </a>
+                    <% }) %>
+                    </div>
+                </section>
+            <% } %>
+        <% } %>
+
+        <% if (added) { %>
+            <div id="added-popup" class="popup">
+                Producto agregado al carrito
+            </div>
+        <% } %>
+        <script>
+            const popup = document.getElementById('added-popup');
+            if (popup) {
+                popup.style.display = 'block';
+                setTimeout(() => popup.style.display = 'none', 2500);
+            }
+        </script>
     </main>
 
-    <!-- Footer dinámico -->
-    <div id="footer-container"></div>
-
-    <!-- JS -->
-    <script src="JS/footer-loader.js"></script>
-    <script src="JS/jsHeader.js"></script>
-    <script src="JS/jsDetail.js"></script>
+    <%- include('partials/footer')%>
 </body>
 </html>

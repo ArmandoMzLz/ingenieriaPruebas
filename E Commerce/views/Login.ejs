@@ -3,21 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - EcoShop</title>
+    <title>Inicio de Sesion</title>
     <!-- CSS separado -->
     <link rel="stylesheet" href="/css/login.css">
+    <link rel="icon" href="/favicon/logo.ico">
 </head>
 <body>
     <!-- Header -->
     <header class="main-header">
-        <h2>Tienda E-commerce</h2>
+        <h2>Black Sheepe</h2>
     </header>
 
     <!-- Contenedor principal -->
     <div class="content-wrapper">
         <div class="login-container">
-            <img alt="Logo" class="logo">
-            <h1>Bienvenido a Pluggix</h1>
+            <img alt="Logo" class="logo" src="/favicon/logo.webp">
+            <h1>Bienvenido a Jack Sheepe</h1>
             <% if (typeof error !== 'undefined' && error) { %>
                 <div class="errorMessage">
                     <%= error %>
@@ -32,10 +33,6 @@
                 </div>
                 <button type="submit" class="login-btn">Iniciar Sesión</button>
             </form>
-            
-            <div class="register-link">
-                Provisional <a href="/Pagina-Principal">Home</a>
-            </div>
             
             <div class="register-link">
                 ¿No tienes una cuenta? <a href="/Registro">Regístrate aquí</a>

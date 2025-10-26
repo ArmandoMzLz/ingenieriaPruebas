@@ -28,6 +28,7 @@ router.post('/', (req, res) => {
             correo: correo
         }
 
+        console.log('Usuario en sesion');
         res.redirect('/Pagina-Principal');
     });
 });
