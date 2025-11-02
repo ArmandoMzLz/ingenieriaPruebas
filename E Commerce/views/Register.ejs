@@ -4,18 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro</title>
-    <link rel="stylesheet" href="/css/Register.css">
     <link rel="icon" href="/favicon/logo.ico">
+    <link rel="stylesheet" href="/css/register.css">
 </head>
 <body>
     <!-- Header -->
     <header class="main-header">
-        <h2>Tienda E-commerce</h2>
+        <h2>Jack Sheepe</h2>
     </header>
 
     <div class="content-wrapper">
         <div class="login-container">
-            <img alt="Logo" class="logo">
+            <img alt="Logo" class="logo" src="/favicon/logo.webp"/>
             <h1>Bienvenido a nuestra tienda</h1>
             <% if (typeof error !== 'undefined' && error) { %>
                 <div class="errorMessage">
@@ -24,10 +24,10 @@
             <% } %>
             <form action="/Registro" method="POST">
                 <div class="input-group">
-                    <input type="text" name="nombre" placeholder="Nombre" required>
+                    <input type="text" name="nombre" placeholder="Nombre" maxlength="30" required>
                 </div>
                 <div class="input-group">
-                    <input type="text" name="apellido" placeholder="Apellidos" required>
+                    <input type="text" name="apellido" placeholder="Apellidos" maxlength="30" required>
                 </div>
                 <div class="input-group">
                     <input type="email" name="correo" placeholder="Correo electrónico" required>

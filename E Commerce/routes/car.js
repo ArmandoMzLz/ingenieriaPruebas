@@ -6,7 +6,9 @@ const router = express.Router();
 require('dotenv').config();
 
 const transporter = nodemailer.createTransport({
-    service: 'gmail',
+    host: "smtp.gmail.com",
+    port: process.env.MAIL_PORT,
+    secure: false,
     auth: {
         user: process.env.MAIL_USER, //escribir una direccion de correo
         pass: process.env.MAIL_PASS //se debe de colocar una contraseña de aplicacion (en gmail -> Administrar tu cuenta de Google -> seguridad -> contraseña de aplicaciones)
@@ -14,15 +16,20 @@ const transporter = nodemailer.createTransport({
 });
 
 router.get('/', (req, res) => {
-    const correoUsuario = req.session?.usuario?.correo;
-
-    if(!correoUsuario) {
-        return res.redirect('/');
-    }
-    
     const carrito = req.session.carrito || [];
     const total = carrito.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
-    res.render('./Car', {carrito, total});
+    const correoUsuario = req.session?.usuario?.correo;
+
+    const sqlMetodosPago = 'SELECT tipoTarjeta FROM usuariosMetodosPago WHERE correoElectronico = ?';
+    db.query(sqlMetodosPago, [correoUsuario], (err, results) => {
+        if(err) {
+            console.log(err);
+            return res.render('./Car', {carrito, total, metodosPago: []});
+        }
+
+        const metodosPago = results.map(r => r.tipoTarjeta). filter(tipo => tipo && tipo.trim() !== '');
+        res.render('./Car', {carrito, total, metodosPago});
+    });
 });
 
 router.post('/agregarCarrito', (req, res) => {
@@ -58,7 +65,7 @@ router.post('/eliminar', (req, res) => {
     res.redirect('/Carrito-de-Compras');
 });
 
-router.post('/finalizar-compra', (req, res) => {
+router.post('/finalizar-compra',  (req, res) => {
     const correo = req.session?.usuario?.correo;
     const carrito = req.session?.carrito || [];
 
@@ -110,7 +117,7 @@ router.post('/finalizar-compra', (req, res) => {
                     <td>$${(item.precio * item.cantidad).toFixed(2)}</td>
                 </tr>
             `).join('');
-
+            
             const mailOptions = {
                 from: process.env.MAIL_USER, //escribir una direccion de correo
                 to: correo,
@@ -139,8 +146,7 @@ router.post('/finalizar-compra', (req, res) => {
                     console.log('Correo enviado:', info.response);
                 }
             });
-            
-            console.log("Correo enviado");
+
             req.session.carrito = [];
 
             res.redirect('/Carrito-de-Compras');

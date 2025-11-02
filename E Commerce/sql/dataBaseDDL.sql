@@ -13,6 +13,7 @@ nombreUsuario VARCHAR(30) NOT NULL,
 apellidoUsuario VARCHAR(30) NOT NULL,
 domicilioUsuario VARCHAR(100),
 telefonoUsuario VARCHAR(10),
+PRIMARY KEY(correoElectronico),
 FOREIGN KEY(correoElectronico) 
 	REFERENCES usuariosLogin(correoElectronico)
 );
@@ -24,6 +25,7 @@ numeroTarjeta VARCHAR(20),
 nombreTitular VARCHAR(50),
 fechaVencimiento DATE,
 cvv INT(3),
+PRIMARY KEY(correoElectronico),
 FOREIGN KEY(correoElectronico)
 	REFERENCES usuariosLogin(correoElectronico)
 );

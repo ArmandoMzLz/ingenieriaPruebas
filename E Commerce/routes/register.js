@@ -18,7 +18,7 @@ router.post('/', (req, res) => {
             return res.render('./Register', { error: 'Algo salio mal. Intentelo más tarde'});
         }
 
-        res.redirect('/Pagina-Principal');
+        res.redirect('/');
     });
 });
 

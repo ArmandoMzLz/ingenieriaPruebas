@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <%- include('partials/header')%>
+    <%- include('partials/Header')%>
 
     <form action="/Pagina-Principal" method="GET" class="search-form">
         <input type="text" name="q" placeholder="¿Qué producto buscas?" value="<%= typeof query !== 'undefined' ? query : '' %>">
@@ -25,12 +25,12 @@
             <nav>
                 <ul>
                     <li><a href="/Pagina-Principal?categoria=Procesador">Procesadores</a></li>
-                    <li><a href="/Pagina-Principal?categoria=Tarjeta gráfica">Tarjetas Gráficas</a></li>
+                    <li><a href="/Pagina-Principal?categoria=Tarjeta grafica">Tarjetas Gráficas</a></li>
                     <li><a href="/Pagina-Principal?categoria=RAM">Memorias RAM</a></li>
                     <li><a href="/Pagina-Principal?categoria=HDD">HDD</a></li>
                     <li><a href="/Pagina-Principal?categoria=SSD">SDD</a></li>
                     <li><a href="/Pagina-Principal?categoria=Tarjeta madre">Tarjetas Madre</a></li>
-                    <li><a href="/Pagina-Principal?categoria=Fuente de alimentación">Fuentes de Poder</a></li>
+                    <li><a href="/Pagina-Principal?categoria=Fuente de alimentacion">Fuentes de Poder</a></li>
                     <li><a href="/Pagina-Principal?categoria=Gabinete">Gabinetes</a></li>
                     <li><a href="/Pagina-Principal?categoria=Refrigeracion">Refrigeración</a></li>
                     <li><a href="/Pagina-Principal">Todos los Productos</a></li>
@@ -80,6 +80,6 @@
         </main>
     </div>
 
-    <%- include('partials/footer')%>
+    <%- include('partials/Footer')%>
 </body>
 </html>

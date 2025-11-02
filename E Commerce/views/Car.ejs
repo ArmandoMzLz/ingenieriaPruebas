@@ -148,7 +148,7 @@
 </head>
 
 <body>
-    <%- include('partials/header')%>
+    <%- include('partials/Header')%>
     <main>
         <h1>Tu Carrito de Compras</h1>
         <div class="cart-container">
@@ -185,10 +185,7 @@
                         </table>
                     </div>
                     <div class="cart-total" id="cart-total">Total: $<%= total %> MXN</div>
-                    <% } %>
-            </div>
-        </div>
-            <div class="checkout-form">
+                    <div class="checkout-form">
                 <h2>Información de Envío y Pago</h2>
                 <form action="/Carrito-de-Compras/finalizar-compra" method="POST" id="checkout-form">
 
@@ -197,23 +194,30 @@
                         placeholder="Calle, número, colonia, ciudad, estado, código postal" required></textarea>
 
                     <label for="telefono">Teléfono de contacto</label>
-                    <input type="tel" id="telefono" name="telefono" placeholder="Ej. 55-1234-5678" required />
+                    <input type="tel" id="telefono" name="telefono" placeholder="Ej. 55-1234-5678" maxlength="10" required />
 
                     <label for="metodo-pago">Método de pago</label>
                     <select id="metodo-pago" name="metodo-pago" required>
-                        <option value="">Selecciona un tipo</option>
-                        <option value="Visa">Visa</option>
-                        <option value="MasterCard">MasterCard</option>
-                        <option value="Amex">American Express</option>
-                        <option value="Discover">Discover</option>
+                        <% if(metodosPago && metodosPago.length > 0) { %>
+                            <option value="">Selecciona un tipo</option>
+                            <% metodosPago.forEach(metodo => { %>
+                                <option value="<%= metodo %>"><%= metodo %></option>
+                            <% }) %>
+                        <% } else { %>
+                            <option value="">No tiene ningún metodo de pago guardado</option>
+                        <% } %>
                     </select>
 
                     <button type="submit">Finalizar Compra</button>
                 </form>
             </div>
+                    <% } %>
+            </div>
+        </div>
+            
     </main>
 
-    <%- include('partials/footer')%>
+    <%- include('partials/Footer')%>
 </body>
 
 </html>
