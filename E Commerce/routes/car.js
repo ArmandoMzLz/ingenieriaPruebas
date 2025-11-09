@@ -34,6 +34,7 @@ router.get('/', (req, res) => {
 
 router.post('/agregarCarrito', (req, res) => {
     const { idProducto, nombre, precio, cantidad, imagen, paginaOrigen } = req.body;
+    console.log(paginaOrigen);
 
     if(!req.session.carrito) {
         req.session.carrito = [];
