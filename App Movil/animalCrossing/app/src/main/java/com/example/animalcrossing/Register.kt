@@ -57,7 +57,6 @@ class Register : ComponentActivity() {
                 else -> ""
             }
 
-            //Validacion
             if(inputEmail.isBlank() || inputPassword.isBlank() || inputName.isBlank() || inputAddress.isBlank() || inputPhone.isBlank() || role.isBlank()){
                 Toast.makeText(this, "Por favor, llene todos los campos", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener

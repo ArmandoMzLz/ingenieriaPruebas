@@ -5,36 +5,37 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.animalcrossing.data.entity.userEntity
 
-class WalkerAdapter (
-    private var walkers: List<UserWithWalkerData>,
-    private val onClick: (UserWithWalkerData) -> Unit
-) : RecyclerView.Adapter<WalkerAdapter.walkerViewHolder>() {
+class WalkerAdapter(
+    private var walkerList: List<userEntity>,
+    private val onClick: (userEntity) -> Unit
+) : RecyclerView.Adapter<WalkerAdapter.WalkerViewHolder>() {
 
-    inner class walkerViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val name: TextView = view.findViewById(R.id.walkerName)
-        val email: TextView = view.findViewById(R.id.walkerEmail)
-        val rating: TextView = view.findViewById(R.id.walkerRating)
+    inner class WalkerViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val walkerName: TextView = view.findViewById(R.id.walkerName)
+        val walkerEmail: TextView = view.findViewById(R.id.walkerEmail)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): walkerViewHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.item_walker_card, parent, false)
-        return walkerViewHolder(v)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WalkerViewHolder {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_walker_card, parent, false)
+        return WalkerViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: walkerViewHolder, position: Int) {
-        val w  = walkers[position]
+    override fun onBindViewHolder(holder: WalkerViewHolder, position: Int) {
+        val walker = walkerList[position]
 
-        holder.name.text = w.user?.name
-        holder.email.text = w.user?.userEmail
-        holder.rating.text = "${w.walker?.ratingAverage ?: "Sin reseñas"}"
-        holder.itemView.setOnClickListener { onClick(w) }
+        holder.walkerName.text = walker.name
+        holder.walkerEmail.text = walker.userEmail
+
+        holder.itemView.setOnClickListener { onClick(walker) }
     }
 
-    override fun getItemCount(): Int = walkers.size
+    override fun getItemCount(): Int = walkerList.size
 
-    fun update(new: List<UserWithWalkerData>) {
-        walkers = new
+    fun updateData(newList: List<userEntity>) {
+        walkerList = newList
         notifyDataSetChanged()
     }
 }

@@ -10,35 +10,36 @@ import androidx.recyclerview.widget.RecyclerView
 import java.io.Serializable
 
 class Route : Fragment() {
-    private var pet: com.example.animalcrossing.data.entity.petEntity? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        pet = arguments?.getSerializable("pet") as? com.example.animalcrossing.data.entity.petEntity
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.item_route_card, container, false)
+        return inflater.inflate(R.layout.fragment_route, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         val recycler = view.findViewById<RecyclerView>(R.id.routesRecycler)
         recycler.layoutManager = LinearLayoutManager(requireContext())
-        recycler.adapter = RouteAdapter(PredefinedRoutes.allRoutes) { selectedRoute ->
-            val frag = WalkerList()
-            val b = Bundle()
-            b.putSerializable("pet", pet as Serializable?)
-            b.putSerializable("route", selectedRoute)
-            frag.arguments = b
 
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_contanier, frag)
-                .addToBackStack(null)
-                .commit()
+        recycler.adapter = RouteAdapter(PredefinedRoutes.allRoutes) { selectedRoute ->
+            openMap(selectedRoute)
         }
+    }
+
+    private fun openMap(route: PredefinedRoute) {
+        val fragment = RouteMapFragment()
+
+        val bundle = Bundle()
+        bundle.putSerializable("route", route)
+        fragment.arguments = bundle
+
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragment_contanier, fragment)
+            .addToBackStack(null)
+            .commit()
     }
 }

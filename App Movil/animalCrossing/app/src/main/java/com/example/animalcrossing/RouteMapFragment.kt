@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import com.example.animalcrossing.data.database.dataBaseProvider
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -15,23 +14,27 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.PolylineOptions
-import org.w3c.dom.Text
 
 class RouteMapFragment : Fragment(), OnMapReadyCallback {
+
     private lateinit var selectedRoute: PredefinedRoute
 
     private var pet: com.example.animalcrossing.data.entity.petEntity? = null
-    private lateinit var walkerUser: com.example.animalcrossing.data.entity.userEntity
+    private var walkerUser: com.example.animalcrossing.data.entity.userEntity? = null
     private var walkerData: com.example.animalcrossing.data.entity.walkerEntity? = null
-    private val db by lazy { dataBaseProvider.getDatabase(requireContext()) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        selectedRoute = requireArguments().getSerializable("route") as PredefinedRoute
 
-        pet = requireArguments().getSerializable("pet") as? com.example.animalcrossing.data.entity.petEntity
-        walkerUser = requireArguments().getSerializable("walkerUser") as com.example.animalcrossing.data.entity.userEntity
-        walkerData = requireArguments().getSerializable("walkerData") as? com.example.animalcrossing.data.entity.walkerEntity
+        selectedRoute =
+            requireArguments().getSerializable("route") as PredefinedRoute
+
+        pet =
+            requireArguments().getSerializable("pet") as? com.example.animalcrossing.data.entity.petEntity
+        walkerUser =
+            requireArguments().getSerializable("walkerUser") as? com.example.animalcrossing.data.entity.userEntity
+        walkerData =
+            requireArguments().getSerializable("walkerData") as? com.example.animalcrossing.data.entity.walkerEntity
     }
 
     override fun onCreateView(
@@ -39,22 +42,44 @@ class RouteMapFragment : Fragment(), OnMapReadyCallback {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-       return inflater.inflate(R.layout.fragment_route_map, container, false)
+        return inflater.inflate(R.layout.fragment_route_map, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val mapFragment = childFragmentManager.findFragmentById(R.id.mapFragment) as SupportMapFragment
+        super.onViewCreated(view, savedInstanceState)
+
+        val mapFragment =
+            childFragmentManager.findFragmentById(R.id.mapFragment) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-        view.findViewById<TextView>(R.id.mapPetName).text = pet?.name ?: ""
-        view.findViewById<TextView>(R.id.mapRouteName).text = selectedRoute.name
-        view.findViewById<TextView>(R.id.mapWalkerName).text = walkerUser.name
+        val infoCard = view.findViewById<View>(R.id.infoCard)
+        val previewText = view.findViewById<TextView>(R.id.previewText)
 
-        view.findViewById<Button>(R.id.buttonFinishWalk).setOnClickListener {
+        val petNameView = view.findViewById<TextView>(R.id.mapPetName)
+        val routeNameView = view.findViewById<TextView>(R.id.mapRouteName)
+        val walkerNameView = view.findViewById<TextView>(R.id.mapWalkerName)
+        val finishBtn = view.findViewById<Button>(R.id.buttonFinishWalk)
+
+        routeNameView.text = selectedRoute.name
+
+        if (pet == null || walkerUser == null) {
+            infoCard.visibility = View.GONE
+            previewText.visibility = View.VISIBLE
+            return
+        }
+
+        infoCard.visibility = View.VISIBLE
+        previewText.visibility = View.GONE
+
+        petNameView.text = pet?.name ?: ""
+        walkerNameView.text = walkerUser?.name ?: ""
+
+        finishBtn.setOnClickListener {
             val frag = Rating()
             val b = Bundle()
-            b.putString("walkerEmail", walkerUser.userEmail)
+            b.putString("walkerEmail", walkerUser?.userEmail)
             frag.arguments = b
+
             parentFragmentManager.beginTransaction()
                 .replace(R.id.fragment_contanier, frag)
                 .addToBackStack(null)
@@ -63,6 +88,7 @@ class RouteMapFragment : Fragment(), OnMapReadyCallback {
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
+
         googleMap.addPolyline(
             PolylineOptions().apply {
                 addAll(selectedRoute.points.map { LatLng(it.latitude, it.longitude) })
@@ -72,8 +98,11 @@ class RouteMapFragment : Fragment(), OnMapReadyCallback {
 
         val bounds = LatLngBounds.builder()
         selectedRoute.points.forEach { p ->
-            bounds.include((LatLng(p.latitude, p.longitude)))
+            bounds.include(LatLng(p.latitude, p.longitude))
         }
-        googleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(), 150))
+
+        googleMap.animateCamera(
+            CameraUpdateFactory.newLatLngBounds(bounds.build(), 150)
+        )
     }
 }

@@ -47,15 +47,28 @@ class Home : Fragment() {
         val userGreeting: TextView = view.findViewById(R.id.userGreeting)
         userGreeting.text = "Bienvenido, $username"
 
-        petRecyclerView = view.findViewById(R.id.petRecycleViewer)
-        adapter = PetAdapter(emptyList())
+        adapter = PetAdapter(
+            pets = emptyList(),
+            onPetSelected = { pet ->
+                openChooseRoute(pet, useremail)
+            }
+        )
 
+        petRecyclerView = view.findViewById(R.id.petRecycleViewer)
         petRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         petRecyclerView.adapter = adapter
 
         loadPets(useremail)
 
         return view
+    }
+
+    private fun openChooseRoute(pet: com.example.animalcrossing.data.entity.petEntity, userEmail: String) {
+        val fragment = ChooseRoute.newInstance(pet.id, pet.name, userEmail)
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragment_contanier, fragment)
+            .addToBackStack(null)
+            .commit()
     }
 
     private fun loadPets(userEmail: String) {

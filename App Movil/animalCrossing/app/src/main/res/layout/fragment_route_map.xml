@@ -1,51 +1,72 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- MAPA -->
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- Tarjeta de info -->
     <LinearLayout
+        android:id="@+id/infoCard"
+        android:orientation="vertical"
+        android:padding="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_margin="16dp"
+        android:layout_gravity="bottom"
+        android:elevation="6dp">
+
+        <TextView
+            android:id="@+id/mapTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Detalle de ruta"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:paddingBottom="8dp" />
 
         <TextView
             android:id="@+id/mapPetName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pet"
-            android:textStyle="bold"
-            android:textSize="18sp"/>
+            android:text="" />
 
         <TextView
             android:id="@+id/mapRouteName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Route"
-            android:textSize="16sp"/>
+            android:text="" />
 
         <TextView
             android:id="@+id/mapWalkerName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Walker"
-            android:textSize="16sp"/>
+            android:text="" />
+
+        <Button
+            android:id="@+id/buttonFinishWalk"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Finalizar paseo" />
+
     </LinearLayout>
 
-    <fragment
-        android:id="@+id/mapFragment"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        tools:layout="@layout/fragment_route" />
-
-    <Button
-        android:id="@+id/buttonFinishWalk"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/previewText"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Finalizar paseo"
-        android:layout_margin="16dp"/>
-</LinearLayout>
+        android:text="Vista previa de la ruta"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:padding="12dp"
+        android:layout_margin="20dp"
+        android:elevation="5dp"
+        android:layout_gravity="top|center_horizontal"
+        android:visibility="gone" />
+
+</FrameLayout>

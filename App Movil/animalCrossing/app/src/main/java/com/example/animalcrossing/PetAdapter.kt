@@ -10,7 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.animalcrossing.data.entity.petEntity
 
 class PetAdapter (
-    private var pets: List<petEntity>
+    private var pets: List<petEntity>,
+    private val onPetSelected: (petEntity) -> Unit
+
 ) : RecyclerView.Adapter<PetAdapter.PetViewHolder>() {
     inner class PetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val petImage: ImageView = itemView.findViewById(R.id.petImage)
@@ -32,6 +34,10 @@ class PetAdapter (
 
         val uri = Uri.parse(pet.photoUri)
         holder.petImage.setImageURI(uri)
+
+        holder.itemView.setOnClickListener {
+            onPetSelected(pet)
+        }
     }
 
     override fun getItemCount(): Int = pets.size
