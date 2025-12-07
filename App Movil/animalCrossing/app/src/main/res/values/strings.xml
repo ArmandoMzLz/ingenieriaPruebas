@@ -1,0 +1,56 @@
+<resources>
+    <string name="app_name" translatable="false">animalCrossing</string>
+
+    <string name="appName">Animal Crossing</string>
+
+    <!--Navbar-->
+    <string name="account">Account</string>
+    <string name="home">Home</string>
+    <string name="pet">Pet</string>
+    <string name="route">Route</string>
+    <string name="message">Message</string>
+
+    <!--Login-->
+    <string name="email">Correo electrónico</string>
+    <string name="password">Contraseña</string>
+    <string name="buttonLogin">Ingresar</string>
+    <string name="buttonRegister">Registrarse</string>
+    <string name="register">¿Aún no tiene una cuenta? Registrese aquí</string>
+    <string name="title_activity_register">Register</string>
+
+    <!--Register-->
+    <string name="address">Dirección</string>
+    <string name="number">Número telefónico</string>
+    <string name="owner">Soy un dueño</string>
+    <string name="walker">Soy un paseador</string>
+
+    <!--Main menu-->
+    <string name="availablePets">Mascotas registradas</string>
+    <string name="title_activity_owner_profile">OwnerProfile</string>
+    <string name="userQuestion">¿Qué mascota saldrá a pasear hoy?</string>
+
+    <string name="title_activity_pet">Pet</string>
+    <string name="title_activity_routes">Routes</string>
+    <string name="title_activity_messages">Messages</string>
+
+    <!--AccountFragment-->
+    <string name="saveChangesButton">Guardar Cambios</string>
+    <string name="title_account_change">Actualizar Datos</string>
+    <string name="title_account_close">Cerrar Sesión</string>
+
+    <!--PetFragment-->
+    <string name="title_pet_fragment">Registrar nueva mascota</string>
+    <string name="petName">Nombre</string>
+    <string name="petBreed">Raza</string>
+    <string name="petAge">Edad</string>
+    <string name="petDescription">Descripción (Comportamiento, \ncondiciones médicas, etc.)</string>
+    <string name="selectPetPhoto">Seleccione una foto</string>
+    <string name="registerPet">Registrar mascota</string>
+
+    <!--Route Fragment (and Related)-->
+    <string name="text1">Rutas disponibles</string>
+    <string name="showRoute">Mostrar recorrido</string>
+    <string name="moreMapDetails">\nPresione para ver la ruta en el mapa</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

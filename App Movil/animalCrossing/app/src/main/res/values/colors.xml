@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="oliveGreen">#BFD962</color>
+    <color name="reallyDarkGreenAccent">#356603</color>
+    <color name="darkGreenAccent">#488C04</color>
+    <color name="darkGreen">#55A605</color>
+    <color name="lightGreen">#E3F2AC</color>
+    <color name="background">#F2F2F2</color>
+    <color name="black">#000000</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="gray">#B3AEAE</color>
+</resources>
