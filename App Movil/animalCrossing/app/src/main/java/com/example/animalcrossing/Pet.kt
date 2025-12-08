@@ -217,9 +217,12 @@ class Pet : Fragment() {
             val requests = db.walkerRequestDao().getRequestsForWalker(userEmail)
             launch(Dispatchers.Main) {
                 if(requests.isNotEmpty()) {
+                    requestEmpty.visibility = View.GONE
+                    requestRecycler.visibility = View.VISIBLE
                     requestAdapter.updateData(requests)
                 } else {
                     requestEmpty.visibility = View.VISIBLE
+                    requestRecycler.visibility = View.GONE
                 }
             }
         }
@@ -241,6 +244,7 @@ class Pet : Fragment() {
                 } else {
                     requestTitle.visibility = View.GONE
                     requestRecycler.visibility = View.GONE
+                    requestEmpty.visibility = View.VISIBLE
                 }
             }
         }

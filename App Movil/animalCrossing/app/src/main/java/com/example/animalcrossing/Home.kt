@@ -123,7 +123,7 @@ class Home : Fragment() {
     }
 
     private fun showWalkerUI() {
-        acceptedCard.visibility = View.VISIBLE
+        acceptedCard.visibility = View.GONE
         petRecyclerView.visibility = View.GONE
         emptyMessage.visibility = View.GONE
     }
@@ -146,6 +146,8 @@ class Home : Fragment() {
                             btnStartWalk.setOnClickListener {
                                 startWalk(req)
                             }
+                        } else {
+                            acceptedCard.visibility = View.GONE
                         }
                     }
                 }
