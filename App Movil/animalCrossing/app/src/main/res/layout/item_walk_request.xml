@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="12dp"
+    android:elevation="6dp"
+    android:padding="16dp"
+    android:backgroundTint="@android:color/white">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textOwner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dueño:"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/textPet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Mascota:"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/textRoute"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Ruta:"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/textStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="Estado: Pendiente"
+            android:textSize="14sp"
+            android:textStyle="italic"
+            android:textColor="#555555" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end"
+            android:layout_marginTop="10dp">
+
+            <Button
+                android:id="@+id/buttonAccept"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Aceptar" />
+
+            <Button
+                android:id="@+id/buttonReject"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rechazar"
+                android:layout_marginStart="12dp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

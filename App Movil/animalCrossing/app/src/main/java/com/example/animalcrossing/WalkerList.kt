@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.animalcrossing.data.database.dataBaseProvider
@@ -14,6 +15,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class WalkerList : Fragment() {
+
     companion object {
         private const val ARG_ROUTE = "selectedRoute"
         private const val ARG_PET_ID = "petId"
@@ -41,6 +43,7 @@ class WalkerList : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: WalkerAdapter
+    private lateinit var emptyMessage: TextView
 
     private lateinit var selectedRoute: PredefinedRoute
     private var petId: Int = -1
@@ -55,12 +58,14 @@ class WalkerList : Fragment() {
         val view = inflater.inflate(R.layout.fragment_walker_list, container, false)
 
         recyclerView = view.findViewById(R.id.walkersRecycler)
+        emptyMessage = view.findViewById(R.id.emptyWalkerMessage)
+
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        selectedRoute = arguments?.getSerializable(ARG_ROUTE) as PredefinedRoute
-        petId = arguments?.getInt(ARG_PET_ID) ?: -1
-        petName = arguments?.getString(ARG_PET_NAME) ?: ""
-        user = arguments?.getSerializable(ARG_USER) as userEntity
+        selectedRoute = requireArguments().getSerializable(ARG_ROUTE) as PredefinedRoute
+        petId = requireArguments().getInt(ARG_PET_ID)
+        petName = requireArguments().getString(ARG_PET_NAME) ?: ""
+        user = requireArguments().getSerializable(ARG_USER) as userEntity
 
         adapter = WalkerAdapter(emptyList()) { walker ->
             openWalkerProfile(walker)
@@ -77,10 +82,19 @@ class WalkerList : Fragment() {
         val db = dataBaseProvider.getDatabase(requireContext())
 
         CoroutineScope(Dispatchers.IO).launch {
-            val walkers = db.userDao().getWalkerUsers() // Filtrados por role = "Walker"
+            val walkers = db.userDao().getWalkerUsers()
 
             launch(Dispatchers.Main) {
+
                 adapter.updateData(walkers)
+
+                if (walkers.isEmpty()) {
+                    emptyMessage.visibility = View.VISIBLE
+                    recyclerView.visibility = View.GONE
+                } else {
+                    emptyMessage.visibility = View.GONE
+                    recyclerView.visibility = View.VISIBLE
+                }
             }
         }
     }

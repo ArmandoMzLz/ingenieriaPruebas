@@ -9,11 +9,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.animalcrossing.data.entity.petEntity
 
-class PetAdapter (
+class PetAdapter(
     private var pets: List<petEntity>,
-    private val onPetSelected: (petEntity) -> Unit
-
+    private val onPetSelected: ((petEntity) -> Unit)? = null
 ) : RecyclerView.Adapter<PetAdapter.PetViewHolder>() {
+
     inner class PetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val petImage: ImageView = itemView.findViewById(R.id.petImage)
         val petName: TextView = itemView.findViewById(R.id.petName)
@@ -31,12 +31,10 @@ class PetAdapter (
 
         holder.petName.text = pet.name
         holder.petBreed.text = pet.breed
-
-        val uri = Uri.parse(pet.photoUri)
-        holder.petImage.setImageURI(uri)
+        holder.petImage.setImageURI(Uri.parse(pet.photoUri))
 
         holder.itemView.setOnClickListener {
-            onPetSelected(pet)
+            onPetSelected?.invoke(pet)
         }
     }
 

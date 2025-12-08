@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -21,28 +22,40 @@ import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileOutputStream
 import androidx.core.net.toUri
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.transition.Visibility
+import com.example.animalcrossing.data.entity.walkerRequestEntity
 
 class Pet : Fragment() {
+    private lateinit var petRegisterTitle: TextView
     private lateinit var petName: EditText
     private lateinit var petBreed: EditText
     private lateinit var petAge: EditText
     private lateinit var petDescription: EditText
-
     private lateinit var petPhoto: ImageView
-
     private lateinit var petSelectPhoto: Button
     private lateinit var petRegister: Button
-
     private lateinit var pickImageLauncher: ActivityResultLauncher<String>
+    private lateinit var requestTitle: TextView
+    private lateinit var requestEmpty: TextView
+    private lateinit var requestRecycler: RecyclerView
+    private lateinit var requestAdapter: WalkerRequestAdapter
     private var selectedPhotoUri: String = ""
+    private var userRole: String = "Owner"
+    private lateinit var userEmail: String
 
     companion object {
         private const val ARG_USEREMAIL = "UserEmail"
+        private const val ARG_USERROLE = "UserRole"
 
-        fun newInstance(userEmail: String) : Pet {
+        fun newInstance(userEmail: String, userRole: String) : Pet {
             val fragment = Pet()
             val args = Bundle()
-            args.putString(ARG_USEREMAIL, userEmail)
+            args.apply {
+                putString(ARG_USEREMAIL, userEmail)
+                putString(ARG_USERROLE, userRole)
+            }
             fragment.arguments = args
             return fragment
         }
@@ -69,8 +82,10 @@ class Pet : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_pet, container, false)
 
-        val userEmail = arguments?.getString(ARG_USEREMAIL) ?: throw IllegalStateException("Pet Fragment requiere un userEmail válido")
+        userEmail = arguments?.getString(ARG_USEREMAIL) ?: throw IllegalStateException("Pet Fragment requiere un userEmail válido")
+        userRole = arguments?.getString(ARG_USERROLE) ?: "Owner"
 
+        petRegisterTitle = view.findViewById(R.id.textView6)
         petName = view.findViewById(R.id.editTextName)
         petBreed = view.findViewById(R.id.editTextBreed)
         petAge = view.findViewById(R.id.editTextAge)
@@ -87,7 +102,66 @@ class Pet : Fragment() {
 
         petRegister.setOnClickListener { registerPet(userEmail) }
 
+        requestTitle = view.findViewById(R.id.walkerRequestsTitle)
+        requestEmpty = view.findViewById(R.id.emptyRequests)
+        requestRecycler = view.findViewById(R.id.walkerRequestsRecycler)
+
+        requestRecycler.layoutManager = LinearLayoutManager(requireContext())
+        requestAdapter = WalkerRequestAdapter(emptyList(),
+            object : WalkerRequestAdapter.OnRequestActionListener {
+                override fun onAccept(request: walkerRequestEntity) {
+                    updateRequestStatus(request, "Aceptada")
+                }
+
+                override fun onReject(request: walkerRequestEntity) {
+                    updateRequestStatus(request, "Rechazada")
+                }
+            }
+        )
+
+        requestRecycler.adapter = requestAdapter
+
+        loadUserRole()
+
         return view
+    }
+
+    private fun loadUserRole() {
+        if(userRole == "Owner") {
+            showOwnerUI()
+        } else {
+            showWalkerUI()
+        }
+    }
+
+    private fun showOwnerUI() {
+        petRegisterTitle.visibility = View.VISIBLE
+        petName.visibility = View.VISIBLE
+        petBreed.visibility = View.VISIBLE
+        petAge.visibility = View.VISIBLE
+        petDescription.visibility = View.VISIBLE
+        petPhoto.visibility = View.VISIBLE
+        petSelectPhoto.visibility = View.VISIBLE
+        petRegister.visibility = View.VISIBLE
+
+        requestTitle.visibility = View.GONE
+        requestRecycler.visibility = View.GONE
+    }
+
+    private fun showWalkerUI() {
+        petRegisterTitle.visibility = View.GONE
+        petName.visibility = View.GONE
+        petBreed.visibility = View.GONE
+        petAge.visibility = View.GONE
+        petDescription.visibility = View.GONE
+        petPhoto.visibility = View.GONE
+        petSelectPhoto.visibility = View.GONE
+        petRegister.visibility = View.GONE
+
+        requestTitle.visibility = View.VISIBLE
+        requestRecycler.visibility = View.VISIBLE
+
+        loadRequests()
     }
 
     private fun registerPet(userEmail: String) {
@@ -134,5 +208,41 @@ class Pet : Fragment() {
         outputStream.close()
 
         return file.absolutePath
+    }
+
+    private fun loadRequests() {
+        val db = dataBaseProvider.getDatabase(requireContext())
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val requests = db.walkerRequestDao().getRequestsForWalker(userEmail)
+            launch(Dispatchers.Main) {
+                if(requests.isNotEmpty()) {
+                    requestAdapter.updateData(requests)
+                } else {
+                    requestEmpty.visibility = View.VISIBLE
+                }
+            }
+        }
+    }
+
+    private fun updateRequestStatus(request: walkerRequestEntity, newStatus: String) {
+        val db = dataBaseProvider.getDatabase(requireContext())
+
+        CoroutineScope(Dispatchers.IO).launch {
+            db.walkerRequestDao().updateStatus(request.id, newStatus)
+
+            val updated = db.walkerRequestDao().getRequestsForWalker(userEmail)
+
+            launch(Dispatchers.Main) {
+                if (updated.isNotEmpty()) {
+                    requestTitle.visibility = View.VISIBLE
+                    requestRecycler.visibility = View.VISIBLE
+                    requestAdapter.updateData(updated)
+                } else {
+                    requestTitle.visibility = View.GONE
+                    requestRecycler.visibility = View.GONE
+                }
+            }
+        }
     }
 }

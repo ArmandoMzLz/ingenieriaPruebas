@@ -100,8 +100,7 @@ class WalkerProfile : Fragment() {
             petId = petId,
             petName = petName,
             routeName = route.name,
-            status = "Pendiente",
-            timestamp = System.currentTimeMillis()
+            status = "Pendiente"
         )
 
         CoroutineScope(Dispatchers.IO).launch {

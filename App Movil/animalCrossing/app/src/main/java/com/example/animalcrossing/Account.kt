@@ -8,7 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
+import androidx.recyclerview.widget.RecyclerView
 import com.example.animalcrossing.data.database.dataBaseProvider
 import com.example.animalcrossing.utils.SessionManager
 import kotlinx.coroutines.CoroutineScope
@@ -22,10 +24,8 @@ class Account : Fragment() {
     private lateinit var editName: EditText
     private lateinit var editAddress: EditText
     private lateinit var editTelephone: EditText
-
     private lateinit var saveButton: Button
     private lateinit var logoutButton: Button
-
     private lateinit var userEmail: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,8 +75,8 @@ class Account : Fragment() {
         CoroutineScope(Dispatchers.IO).launch {
             val user = db.userDao().getUserById(userEmail)
 
-            if(user != null) {
-                CoroutineScope(Dispatchers.Main).launch {
+            if (user != null) {
+                launch(Dispatchers.Main) {
                     editName.setText(user.name)
                     editPassword.setText(user.password)
                     editAddress.setText(user.address)

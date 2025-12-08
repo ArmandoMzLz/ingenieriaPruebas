@@ -12,20 +12,21 @@ class MainMenu : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.main_menu)
 
-
         val userName = intent.getStringExtra("UserName") ?: "Usuario"
         val userEmail = intent.getStringExtra("UserEmail") ?: "Correo"
+        val userRole = intent.getStringExtra("UserRole") ?: "Role"
         val bottomNav: BottomNavigationView = findViewById(R.id.bottomNavigationView)
 
         if(savedInstanceState == null) {
-            loadFragment(Home.newInstance(userName, userEmail))
+            bottomNav.selectedItemId = R.id.bottom_home
+            loadFragment(Home.newInstance(userName, userEmail, userRole))
         }
 
         bottomNav.setOnItemSelectedListener { item ->
             val fragment = when(item.itemId) {
                 R.id.bottom_account -> Account()
-                R.id.bottom_pet -> Pet.newInstance(userEmail)
-                R.id.bottom_home -> Home.newInstance(userName, userEmail)
+                R.id.bottom_pet -> Pet.newInstance(userEmail, userRole)
+                R.id.bottom_home -> Home.newInstance(userName, userEmail, userRole)
                 R.id.bottom_route -> Route()
                 R.id.bottom_message -> Message()
                 else -> null
@@ -36,8 +37,6 @@ class MainMenu : AppCompatActivity() {
                 true
             } ?: false
         }
-
-        bottomNav.selectedItemId = R.id.bottom_home
     }
 
     private fun loadFragment(fragment: Fragment) {

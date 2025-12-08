@@ -68,6 +68,7 @@ class MainActivity : ComponentActivity() {
                     val intent = Intent(this@MainActivity, MainMenu::class.java).apply {
                         putExtra("UserName", user.name)
                         putExtra("UserEmail", user.userEmail)
+                        putExtra("UserRole", user.role)
                     }
                     startActivity(intent)
                 }
