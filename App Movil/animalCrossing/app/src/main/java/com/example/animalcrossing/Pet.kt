@@ -25,6 +25,7 @@ import androidx.core.net.toUri
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.Visibility
+import com.example.animalcrossing.adapters.WalkerRequestAdapter
 import com.example.animalcrossing.data.entity.walkerRequestEntity
 
 class Pet : Fragment() {
@@ -107,7 +108,8 @@ class Pet : Fragment() {
         requestRecycler = view.findViewById(R.id.walkerRequestsRecycler)
 
         requestRecycler.layoutManager = LinearLayoutManager(requireContext())
-        requestAdapter = WalkerRequestAdapter(emptyList(),
+        requestAdapter = WalkerRequestAdapter(
+            emptyList(),
             object : WalkerRequestAdapter.OnRequestActionListener {
                 override fun onAccept(request: walkerRequestEntity) {
                     updateRequestStatus(request, "Aceptada")

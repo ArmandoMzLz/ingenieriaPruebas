@@ -35,4 +35,11 @@ data class walkerRequestEntity(
     val petName: String,
     val routeName: String,
     val status: String,      // Pendiente, Aceptada, EnCurso, Completada
+
+    val startTime: Long? = null,
+    val currentLat: Double? = null,
+    val currentLang: Double? = null,
+    val distanceWalked: Float? = 0f,
+
+    val rated: Boolean = false
 )

@@ -24,13 +24,16 @@
             android:layout_height="wrap_content"
             android:textStyle="italic"
             android:textSize="14sp"/>
-        
+
         <TextView
             android:id="@+id/walkerRating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"/>
-        
+            android:text="⭐ 0.0"
+            android:textSize="14sp"
+            android:textColor="#FFA000"
+            android:layout_marginTop="4dp"/>
+
     </LinearLayout>
     
 </androidx.cardview.widget.CardView>

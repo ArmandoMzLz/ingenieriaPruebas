@@ -6,8 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.animalcrossing.adapters.WalkerAdapter
+import com.example.animalcrossing.data.PredefinedRoute
 import com.example.animalcrossing.data.database.dataBaseProvider
 import com.example.animalcrossing.data.entity.userEntity
 import kotlinx.coroutines.CoroutineScope
@@ -29,13 +32,12 @@ class WalkerList : Fragment() {
             user: userEntity
         ): WalkerList {
             val fragment = WalkerList()
-            val args = Bundle()
-
-            args.putSerializable(ARG_ROUTE, route)
-            args.putInt(ARG_PET_ID, petId)
-            args.putString(ARG_PET_NAME, petName)
-            args.putSerializable(ARG_USER, user)
-
+            val args = Bundle().apply {
+                putSerializable(ARG_ROUTE, route)
+                putInt(ARG_PET_ID, petId)
+                putString(ARG_PET_NAME, petName)
+                putSerializable(ARG_USER, user)
+            }
             fragment.arguments = args
             return fragment
         }
@@ -81,27 +83,27 @@ class WalkerList : Fragment() {
     private fun loadWalkers() {
         val db = dataBaseProvider.getDatabase(requireContext())
 
-        CoroutineScope(Dispatchers.IO).launch {
-            val walkers = db.userDao().getWalkerUsers()
+        viewLifecycleOwner.lifecycleScope.launch {
+            db.walkerDao()
+                .getWalkersWithRating()
+                .collect { walkers ->
 
-            launch(Dispatchers.Main) {
+                    adapter.updateData(walkers)
 
-                adapter.updateData(walkers)
-
-                if (walkers.isEmpty()) {
-                    emptyMessage.visibility = View.VISIBLE
-                    recyclerView.visibility = View.GONE
-                } else {
-                    emptyMessage.visibility = View.GONE
-                    recyclerView.visibility = View.VISIBLE
+                    if (walkers.isEmpty()) {
+                        emptyMessage.visibility = View.VISIBLE
+                        recyclerView.visibility = View.GONE
+                    } else {
+                        emptyMessage.visibility = View.GONE
+                        recyclerView.visibility = View.VISIBLE
+                    }
                 }
-            }
         }
     }
 
-    private fun openWalkerProfile(walker: userEntity) {
+    private fun openWalkerProfile(walker: WalkerWithRating) {
         val fragment = WalkerProfile.newInstance(
-            walker = walker,
+            walkerEmail = walker.email,
             route = selectedRoute,
             petId = petId,
             petName = petName,

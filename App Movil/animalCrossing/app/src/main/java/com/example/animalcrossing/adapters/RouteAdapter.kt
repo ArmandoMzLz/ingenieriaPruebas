@@ -1,10 +1,12 @@
-package com.example.animalcrossing
+package com.example.animalcrossing.adapters
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.animalcrossing.R
+import com.example.animalcrossing.data.PredefinedRoute
 
 class RouteAdapter (
     private val routes: List<PredefinedRoute>,

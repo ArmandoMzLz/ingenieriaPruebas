@@ -9,13 +9,17 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.animalcrossing.adapters.PetAdapter
 import com.example.animalcrossing.data.database.dataBaseProvider
 import com.example.animalcrossing.data.entity.petEntity
 import com.example.animalcrossing.data.entity.walkerRequestEntity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -87,6 +91,8 @@ class Home : Fragment() {
         if(userRole == "Owner") {
             showOwnerUI()
             loadPets()
+            observeWalkInProgressForOwner()
+            observeFinishedWalkForOwner()
         } else {
             showWalkerUI()
             loadAcceptedRequest()
@@ -156,14 +162,70 @@ class Home : Fragment() {
 
     private fun startWalk(request: walkerRequestEntity) {
         val db = dataBaseProvider.getDatabase(requireContext())
+        val startTime = System.currentTimeMillis()
 
         CoroutineScope(Dispatchers.IO).launch {
-            db.walkerRequestDao().updateStatus(request.id, "En curso")
+            db.walkerRequestDao().startWalk(
+                request.id,
+                "En curso",
+                startTime
+            )
 
             withContext(Dispatchers.Main) {
-                Toast.makeText(requireContext(), "Paseo iniciado", Toast.LENGTH_SHORT).show()
-                acceptedCard.visibility = View.GONE
+                val fragment = WalkInProgress.newInstance(userEmail)
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_contanier, fragment)
+                    .addToBackStack(null)
+                    .commit()
             }
         }
     }
+
+    private fun observeWalkInProgressForOwner() {
+        val db = dataBaseProvider.getDatabase(requireContext())
+
+        lifecycleScope.launch {
+            db.walkerRequestDao()
+                .observeActiveWalkForOwner(userEmail)
+                .collect { walk ->
+
+                    if (walk == null) {
+                        acceptedCard.visibility = View.GONE
+                        return@collect
+                    }
+
+                    acceptedCard.visibility = View.VISIBLE
+                    btnStartWalk.visibility = View.GONE
+                    acceptedPetName.text = "Mascota: ${walk.petName}"
+                    acceptedRouteName.text = "Paseo en curso"
+                }
+        }
+    }
+
+    private fun observeFinishedWalkForOwner() {
+        val db = dataBaseProvider.getDatabase(requireContext())
+
+        lifecycleScope.launch {
+            db.walkerRequestDao()
+                .observeFinishedWalkForOwner(userEmail)
+                .filterNotNull()
+                .take(1)
+                .collect { walk ->
+                    openRating(walk.walkerEmail)
+                }
+        }
+    }
+
+    private fun openRating(walkerEmail: String) {
+        val fragment = Rating.newInstance(
+            walkerEmail = walkerEmail,
+            ownerEmail = userEmail
+        )
+
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragment_contanier, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
 }

@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import java.io.Serializable
+import com.example.animalcrossing.adapters.RouteAdapter
+import com.example.animalcrossing.data.PredefinedRoute
+import com.example.animalcrossing.data.PredefinedRoutes
 
 class Route : Fragment() {
 

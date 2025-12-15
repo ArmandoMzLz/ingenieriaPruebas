@@ -1,4 +1,4 @@
-package com.example.animalcrossing
+package com.example.animalcrossing.data
 
 import java.io.Serializable
 

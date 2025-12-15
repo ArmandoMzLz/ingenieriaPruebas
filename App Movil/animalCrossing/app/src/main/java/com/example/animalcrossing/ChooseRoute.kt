@@ -8,6 +8,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.animalcrossing.adapters.RouteAdapter
+import com.example.animalcrossing.data.PredefinedRoute
+import com.example.animalcrossing.data.PredefinedRoutes
 import com.example.animalcrossing.data.database.dataBaseProvider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
