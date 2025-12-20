@@ -227,5 +227,4 @@ class Home : Fragment() {
             .addToBackStack(null)
             .commit()
     }
-
 }

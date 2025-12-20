@@ -18,5 +18,4 @@ interface walkerDao {
 
     @Query("SELECT u.name AS name, u.userEmail AS email, w.ratingAverage AS ratingAverage FROM users u LEFT JOIN walkers w ON u.userEmail = w.walkerEmail WHERE u.role = 'Walker'")
     fun getWalkersWithRating(): Flow<List<WalkerWithRating>>
-
 }
